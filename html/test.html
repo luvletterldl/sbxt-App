@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/iconfont.css" rel="stylesheet" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.picker.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/icons-extra.css" />
+		<style type="text/css">
+			.my-search {
+				position: absolute;
+				z-index: 1;
+				right: 0;
+				width: 38px;
+				height: 38px;
+				text-align: center;
+				color: #FF701A;
+				top: 8px;
+			}
+			
+			.img-show {
+				margin: 5px;
+				width: 86px;
+				height: 86px;
+				padding: 2px;
+				border: 1px dashed #C0C0C0;
+				line-height: 86px;
+				display: inline-block;
+				vertical-align: middle;
+			}
+			
+			.icon-zengjia:before {
+				font-size: 36px;
+			}
+			
+			.img-show img {
+				width: 80px;
+				height: 80px;
+				display: inline-block;
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			.dis_none {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">种植规划图</h1>
+	</header>
+
+	<div class="mui-content">
+		<span style="color: #888888;margin-left: 18%;">请从第一个或者最后一个开始编辑</span>
+		<ul class="mui-table-view" id="clist">
+			<li class="ldl-li">
+				<div class="mui-row">
+					<div class="mui-col-sm-8-1 ldl-div">1</div>
+					<div class="mui-col-sm-8-1 ldl-div">1</div>
+					<div class="mui-col-sm-8-1 ldl-div">1</div>
+					<div class="mui-col-sm-8-1 ldl-div">1</div>
+					<div class="mui-col-sm-8-1 ldl-div">1</div>
+					<div class="mui-col-sm-8-1 ldl-div">1</div>
+					<div class="mui-col-sm-8-1 ldl-div">1</div>
+					<div class="mui-col-sm-8-1 ldl-div">1</div>
+				</div>
+			</li>
+			<li class="ldl-li">
+				<div class="mui-row">
+					<div class="mui-col-sm-7-1 ldl-div">1</div>
+					<div class="mui-col-sm-7-1 ldl-div">2</div>
+					<div class="mui-col-sm-7-1 ldl-div">3</div>
+					<div class="mui-col-sm-7-1 ldl-div">3</div>
+					<div class="mui-col-sm-7-1 ldl-div">3</div>
+					<div class="mui-col-sm-7-1 ldl-div">3</div>
+					<div class="mui-col-sm-7-1 ldl-div">3</div>
+				</div>
+			</li>
+			<li class="ldl-li">
+				<div class="mui-row">
+					<div class="mui-col-sm-2 ldl-div">1</div>
+					<div class="mui-col-sm-2 ldl-div">2</div>
+					<div class="mui-col-sm-2 ldl-div">3</div>
+					<div class="mui-col-sm-2 ldl-div">3</div>
+					<div class="mui-col-sm-2 ldl-div">3</div>
+					<div class="mui-col-sm-2 ldl-div">3</div>
+				</div>
+			</li>
+			<li class="ldl-li">
+				<div class="mui-row">
+					<div class="mui-col-sm-5-1 ldl-div">1</div>
+					<div class="mui-col-sm-5-1 ldl-div">2</div>
+					<div class="mui-col-sm-5-1 ldl-div">3</div>
+					<div class="mui-col-sm-5-1 ldl-div">3</div>
+					<div class="mui-col-sm-5-1 ldl-div">3</div>
+				</div>
+			</li>
+			<li class="ldl-li">
+				<div class="mui-row">
+					<div class="mui-col-sm-3 ldl-div">1</div>
+					<div class="mui-col-sm-3 ldl-div">2</div>
+					<div class="mui-col-sm-3 ldl-div">3</div>
+					<div class="mui-col-sm-3 ldl-div">3</div>
+				</div>
+			</li>
+			<li class="ldl-li">
+				<div class="mui-row">
+					<div class="mui-col-sm-4 ldl-div">1</div>
+					<div class="mui-col-sm-4 ldl-div">2</div>
+					<div class="mui-col-sm-4 ldl-div">3</div>
+				</div>
+			</li>
+			<li class="ldl-li">
+				<div class="mui-row">
+					<div class="mui-col-sm-6 ldl-div">1</div>
+					<div class="mui-col-sm-6 ldl-div">2</div>
+				</div>
+			</li>
+			<li class="ldl-li">
+				<div class="mui-row">
+					<div class="mui-col-sm-12 ldl-div">1</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<input type="button" id="gps" class="mui-button-row" value="getGps" />
+	<body>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/app.js" ></script>
+		<script>
+			(function($, doc) {
+				$.plusReady(function() {
+					document.getElementById('gps').addEventListener('tap',function(){
+						mui.alert("1");
+						plus.geolocation.getCurrentPosition(function(p) {
+							alert('Geolocation\nLatitude:' + p.coords.latitude + '\nLongitude:' + p.coords.longitude + '\nAltitude:' + p.coords.altitude);
+						}, function(e) {
+							alert('Geolocation error: ' + e.message);
+						});
+					});
+				});
+			});
+		</script>
+	</body>
+
+</html>

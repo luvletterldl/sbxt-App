@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/iconfont.css" rel="stylesheet" />
+		<link href="../../css/mui.picker.css" rel="stylesheet" />
+		<link href="../../css/mui.picker.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/icons-extra.css" />
+		<style type="text/css">
+			.my-search {
+				position: absolute;
+				z-index: 1;
+				right: 0;
+				width: 38px;
+				height: 38px;
+				text-align: center;
+				color: #FF701A;
+				top: 8px;
+			}
+			
+			.img-show {
+				margin: 5px;
+				width: 86px;
+				height: 86px;
+				padding: 2px;
+				border: 1px dashed #C0C0C0;
+				line-height: 86px;
+				display: inline-block;
+				vertical-align: middle;
+			}
+			
+			.icon-zengjia:before {
+				font-size: 36px;
+			}
+			
+			.img-show img {
+				width: 80px;
+				height: 80px;
+				display: inline-block;
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			.dis_none {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<!--<button class="mui-pull-right">确定</button>-->
+		<h1 class="mui-title">设置试验田规格</h1>
+	</header>
+	<div class="mui-content">
+		<ul class="mui-table-view" id="clist">
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>列数<span class="must-flag"></span>：</label>
+					<input id="col" type="text" placeholder='列数' validate-rule="required,integer" />
+				</div>
+				<div class="mui-input-row">
+					<label>行数<span class="must-flag"></span>：</label>
+					<input id="row" type="text" placeholder='行数' validate-rule="required,integer" />
+				</div>
+				<div class="mui-input-row">
+					<label>设置植物品种<span class="must-flag"></span>：</label>
+					<input id="variety" type="text" validate-rule="required"/>
+					<span class="mui-icon mui-icon-search my-search" id="chooseVar"></span>
+				</div>
+				<div class="mui-input-row">
+					<label>植物施肥及方法<span class="must-flag"></span>：</label>
+					<input id="manure" type="text" validate-rule="required"/>
+					<span class="mui-icon mui-icon-search my-search" id="chooseMan"></span>
+				</div>
+				<div class="mui-input-row">
+					<label>编辑采样项目<span class="must-flag"></span>：</label>
+					<input id="sampling" type="text" validate-rule="required"/>
+					<span class="mui-icon mui-icon-search my-search" id="chooseSamp"></span>
+				</div>
+				<div class="mui-input-row">
+					<label>采样时间<span class="must-flag"></span>：</label>
+					<input type="text" id="samplingDate" placeholder='采样时间' class="datetime" validate-rule="required" />
+					<span class="mui-icon mui-icon-extra mui-icon-extra-calendar my-search" id="tagName"></span>
+				</div>
+				<div class="mui-input-row">
+					<label>位置<span class="must-flag"></span>：</label>
+					<input id="place" type="text" placeholder="位置" validate-rule="required" />
+				</div>
+				<div class="mui-input-row">
+					<label>经纬度<span class="must-flag"></span>：</label>
+					<input id="lang" type="text" validate-rule="required" placeholder="经度：" style="width: 27%;float: none;">
+					<input id="long" type="text" validate-rule="required" placeholder="纬度：" style="width: 27%;float: none;">
+					<span class="mui-icon mui-icon mui-icon-location my-search" id="location"></span>
+				</div>
+				<div class="mui-input-row">
+					<label>采样负责人<span class="must-flag"></span>：</label>
+					<input id="samplingMan" type="text" class="mui-input-clear" placeholder="采样负责人" validate-rule="required" />
+				</div>
+				<button id='submit' type="button" class="mui-btn mui-btn-block mui-btn-red">设定完成</button>
+			</form>
+		</ul>
+	</div>
+
+	<body>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.picker.js"></script>
+		<script src="../../js/mui.picker.min.js"></script>
+		<script type="text/javascript" src="../../js/validation.js" ></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+		<script type="text/javascript" src="../../js/datasubmit.js"></script>
+		<script src="../../js/camera_gps.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			(function($, doc) {
+				$.init();
+				app.initOpenWindow();
+				//发起时间
+				app.initDateTime(".datetime");
+				$.plusReady(function() {
+					var returnObj = function() {
+						//数据赋值
+						var allInput = document.querySelectorAll('div input');
+						var jsonData = {
+							"col":allInput[0].value,
+							"row":allInput[1].value,
+							"variety":allInput[2].value,
+							"manure":allInput[3].value,
+							"sampItems":allInput[4].value,
+							"samplingDate":allInput[5].value,
+							"place":allInput[6].value,
+							"lang":allInput[7].value,
+							"long":allInput[8].value,
+							"samplingMan":allInput[9].value
+						};
+						console.log("表单数据："+JSON.stringify(jsonData));
+						return jsonData;
+					};
+					document.getElementById("submit").addEventListener("tap", function() {
+						var result = app.validateModel2();
+						var params = returnObj();
+						if(result){
+							app.pageInteraction.injection(params); //回传数据
+							mui.openWindow("layout.html");
+							app.buttonSubmit(this);
+							console.log("开始上传提交");
+						} else {
+							return false;
+						}
+						
+						
+//						if(params.col) {
+//							app.pageInteraction.injection(params); //回传数据
+//							mui.openWindow("layout.html");
+//							app.buttonSubmit(this);
+//							console.log("开始上传提交");
+//							console.log("校验结果:" + reuslt);
+//						} else {
+//							mui.alert("未知错误,error:setFail");
+//							return false;
+//						}
+					});
+					//点击获取定位
+					document.getElementById("location").addEventListener('tap', function() {
+						plus.geolocation.getCurrentPosition(function(p) {
+							//alert('Geolocation\nLatitude:' + p.coords.latitude + '\nLongitude:' + p.coords.longitude + '\nAltitude:' + p.coords.altitude);
+							document.getElementById("lang").value = p.coords.longitude;
+							document.getElementById("long").value = p.coords.latitude;
+							document.getElementById("place").value = p.addresses;
+						}, function(e) {
+							alert('请保持网络畅通并请打开应用的定位权限');
+						});
+					});
+					//初始化---绑定打开的页面，获得子页面传来的值
+					app.pageInteraction.initOpenwindow([{
+						ele: "chooseVar",
+						id: "addVariety.html",
+						url: "addVariety.html",
+						obtain: function(data) {
+							app.log.info(data, "来自品种选择");
+							document.getElementById("variety").value = data;
+						}
+					}, {
+						ele: "chooseMan",
+						id: "addApplyFertileWay.html",
+						url: "addApplyFertileWay.html",
+						obtain: function(data) {
+							app.log.info(data, "来自施肥选择");
+							document.getElementById("manure").value = data;
+						}
+					},{
+						ele:"chooseSamp",
+						id:"addSampItems.html",
+						url:"addSampItems.html",
+						obtain:function(data){
+							app.log.info(data,"来自采样添加");
+							document.getElementById('sampling').value = data;
+						}
+					}]);
+				});
+			}(mui, document));
+		</script>
+	</body>
+
+</html>

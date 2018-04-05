@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont.css" />
+	</head>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<!--<a id="getLayoutParams" openwindow="setFieldLayouttest.html" class="mui-btn mui-btn-green mui-openwindow" style="width: 80px; margin-left: 10px; margin-top: 50px;margin-bottom: 25px;">设定参数</a>-->
+		<h1 class="mui-title">种植规划图展示</h1>
+	</header>
+	<div class="mui-content">
+		<ul class="mui-table-view" id="clist">
+			<form class="mui-input-group">
+				<!--<div id='one' class="mui-input-row">
+				</div>-->
+				</from>
+		</ul>
+	</div>
+	<button id="submit" type="button" class="mui-btn mui-btn-red mui-btn-block" style="display:none;width: 30%;float: right;margin-right: 35%;">完成</button>
+
+	<body>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../../js/dealLayout.js"></script>
+		<script>
+			(function($, doc) {
+				$.init();
+				app.initOpenWindow();
+				$.plusReady(function() {
+					function generDiv(id, spdate, col, row, variety, way) {
+						var divTemp = app.createElement('div', {
+							attrs: {
+								id: id
+							},
+							innerHTML: '行:' + row + " 列:" + col + " 日期:" + spdate + " 品种:" + variety + " 方法:" + way,
+							className: "mui-input-row"
+						})
+						return divTemp;
+					}
+					var strData = localStorage.getItem('$gridsDatas');
+					console.log(strData);
+					var JSONData = JSON.parse(strData);
+					var divCount = JSONData.gridsDatas.length;
+					console.log("共有" + divCount + "组数据");
+					var divAddSite = document.querySelector('.mui-input-group');
+					for(var i = 0; i < divCount; i++) {
+						var extraGroupData = JSONData.gridsDatas[i].extraData;
+						var samplingDate = extraGroupData.samplingDate;
+						var col = extraGroupData.col;
+						var row = extraGroupData.row;
+						var variety = extraGroupData.variety;
+						var way = extraGroupData.manure;
+						var divTemp = generDiv(i, samplingDate, col, row, variety, way);
+						divAddSite.appendChild(divTemp);
+						//						document.getElementById(i).addEventListener('tap', function() {
+						//							var webView = mui.openWindow({
+						//								url: "layoutShowDetail.html",
+						//								id: "layoutShowDetail.html",
+						//								extras: {
+						//									row:row,
+						//									col:col,
+						//									dataSet:JSONData.gridsDatas[i]
+						//								}
+						//							});
+						//						})
+					}
+					mui(".mui-input-group").on('tap', '.mui-input-row', function() {
+						var index = this.getAttribute('id');
+						console.log("点击的当前元素索引为:"+index);
+						var webView = mui.openWindow({
+							url: "layoutShowDetail.html",
+							id: "layoutShowDetail.html",
+							extras: {
+								allData:JSONData,
+								index:index
+							}
+						});
+					});
+				});
+			}(mui, document));
+		</script>
+	</body>
+
+</html>

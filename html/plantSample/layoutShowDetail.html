@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont.css" />
+	</head>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<!--<a id="getLayoutParams" openwindow="setFieldLayouttest.html" class="mui-btn mui-btn-green mui-openwindow" style="width: 80px; margin-left: 10px; margin-top: 50px;margin-bottom: 25px;">设定参数</a>-->
+		<h1 class="mui-title">种植规划图</h1>
+	</header>
+	<div class="mui-content">
+		<ul class="mui-table-view" id="clist">
+		</ul>
+	</div>
+
+	<body>
+		<script type="text/javascript" src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/app.js"></script>
+		<script type="text/javascript" src="../../js/dealLayout.js"></script>
+		<script>
+			mui.init();
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				var dataJson = self.allData;
+				var index = parseInt(self.index);
+				var elemen = document.getElementById('clist');
+				deall.dealGrids(dataJson.gridsDatas[index].extraData, elemen);
+				var grids = document.querySelectorAll('.grid');
+				for(var j = 0; j < index + 1; j++) {
+					for(var i = 0; i < grids.length; i++) {
+						grids[i].innerHTML = grids[i].getAttribute('id') + "<h5>品种：" + dataJson.gridsDatas[j].gridsData[i].varietyTem + "</h5>" + "<h5>肥料：" + dataJson.gridsDatas[j].gridsData[i].manureTem + "</h5>" + "<h5>施肥方法：" + dataJson.gridsDatas[j].gridsData[i].manureWayTem + "</h5>";
+					}
+				}
+				
+				
+			});
+		</script>
+	</body>
+
+</html>

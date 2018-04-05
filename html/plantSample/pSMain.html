@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont.css" />
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav" style="padding-right: 15px;">
+			<a class="iconfont icon-wode1 mui-icon-right-nav mui-pull-right mui-openwindow" openwindow="account.html" style="line-height: 44px;"></a>
+			<h1 class="mui-title">主页</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view mui-grid-view mui-grid-9">
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3 mui-openwindow" openwindow="addVariety.html">
+					<a href="#">
+						<span class="iconfont icon-weihu"></span>
+						<div class="mui-media-body">添加品种</div>
+					</a>
+				</li>
+				<!--main2.html-->
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3 mui-openwindow" openwindow="addApplyFertileWay.html">
+					<a href="#">
+						<span class="iconfont icon-gongjulan_zhangai"></span>
+						<div class="mui-media-body">添加施肥种类及方法</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3 mui-openwindow" openwindow="setFieldLayouttest.html">
+					<a href="#">
+						<span class="iconfont icon-weixiu"></span>
+						<div class="mui-media-body">种植规划图</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3 mui-openwindow" openwindow="../test.html">
+					<a href="#">
+						<span class="iconfont icon-xietiaobangong"></span>
+						<div class="mui-media-body">test</div>
+					</a>
+				</li>
+			   <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3 mui-openwindow" openwindow="layout.html">
+					<a href="#">
+						<span class="iconfont icon-danyuangetianbao" style="color: #FF701A;font-size: 40px;line-height: 34px;"></span>
+						<div class="mui-media-body">layout界面</div>
+					</a>
+				</li>
+			   <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3 mui-openwindow" openwindow="addGridInfoTest.html">
+					<a href="#">
+						<span class="iconfont icon-danyuangetianbao" style="color: #FF701A;font-size: 40px;line-height: 34px;"></span>
+						<div class="mui-media-body">子页面</div>
+					</a>
+				</li>
+			   <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3 mui-openwindow" openwindow="layoutTest.html">
+					<a href="#">
+						<span class="iconfont icon-danyuangetianbao" style="color: #FF701A;font-size: 40px;line-height: 34px;"></span>
+						<div class="mui-media-body">layoutTest界面</div>
+					</a>
+				</li>
+			   <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3 mui-openwindow" openwindow="mapTest.html">
+					<a href="#">
+						<span class="iconfont icon-danyuangetianbao" style="color: #FF701A;font-size: 40px;line-height: 34px;"></span>
+						<div class="mui-media-body">地图测试</div>
+					</a>
+				</li>
+			   <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3 mui-openwindow" openwindow="layoutShow.html">
+					<a href="#">
+						<span class="iconfont icon-danyuangetianbao" style="color: #FF701A;font-size: 40px;line-height: 34px;"></span>
+						<div class="mui-media-body">规划图展示</div>
+					</a>
+				</li>
+			   <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3 mui-openwindow" openwindow="dealPicture.html">
+					<a href="#">
+						<span class="iconfont icon-danyuangetianbao" style="color: #FF701A;font-size: 40px;line-height: 34px;"></span>
+						<div class="mui-media-body">图片水印测试</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<canvas id="myCanvas" width="1000" height="500" >
+			Your browser does not support the HTML5 canvas tag.
+		</canvas>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js"></script>
+		<script>
+			(function($, doc) {
+				$.init();
+				(function(){
+					if(localStorage.getItem('$gridsDatas')){
+						console.log("现有的GD:"+localStorage.getItem('$gridsDatas'));
+					}
+				}());
+				app.initOpenWindow();
+				var count=0;
+				$.back=function(){
+					count++;
+					if(count==1){
+						$.toast("再单击一次退出程序")
+					}else{
+						plus.runtime.quit();
+					}
+				}
+			}(mui, document));
+		</script>
+	</body>
+</html>

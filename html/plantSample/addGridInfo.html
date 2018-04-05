@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/iconfont.css" rel="stylesheet" />
+		<link href="../../css/mui.picker.css" rel="stylesheet" />
+		<link href="../../css/mui.picker.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/icons-extra.css" />
+		<style type="text/css">
+			.img-show {
+				margin: 5px;
+				width: 86px;
+				height: 86px;
+				padding: 2px;
+				border: 1px dashed #C0C0C0;
+				line-height: 86px;
+				display: inline-block;
+				vertical-align: middle;
+			}
+			
+			.icon-zengjia:before {
+				font-size: 36px;
+			}
+			
+			.img-show img {
+				width: 80px;
+				height: 80px;
+				display: inline-block;
+				margin: 0px;
+				padding: 0px;
+			}
+		</style>
+	</head>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<a id="getLayoutParams" class="iconfont icon-wode1 mui-icon-right-nav mui-pull-right mui-openwindow" style="line-height: 44px;"></a>
+		<h1 class="mui-title">编辑表格数据<span id='gridId'></span></h1>
+	</header>
+	<div class="mui-content">
+		<ul class="mui-table-view" id="clist">
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>品种<span class="must-flag"></span>：</label>
+					<input id="variety" class="gridData" placeholder="品种" type="text" validate-rule="required" />
+				</div>
+				<div class="mui-input-row">
+					<label>施肥<span class="must-flag"></span>：</label>
+					<input id="manure" class="gridData" type="text" placeholder="肥料种类" validate-rule="required" />
+				</div>
+				<div class="mui-input-row">
+					<label>施肥方法<span class="must-flag"></span>：</label>
+					<input id="manureWay" class="gridData" type="text" placeholder="施肥方法" validate-rule="required" />
+				</div>
+				<div class="mui-input-row" style="height: auto;">
+					<label style="width: 100%;">线路照片：</label>
+					<div id="imgs" style="margin: 1px 10px;" validate-rule="eleNum(IMG|1)">
+						<div class="img-show mui-text-center" id="selectBnt">
+							<span class="iconfont icon-zengjia"></span>
+						</div>
+					</div>
+					<span class="mui-text-center mui-block" style="color: red;">最多选择5张照片,点击图片删除</span>
+				</div>
+				<div style="margin: 20px 0;">
+					<button id="cancel" type="button" class="mui-btn mui-btn-red mui-btn-block" style="width: 30%;float: left;margin-left: 15%;">取消</button>
+					<button id="submit" type="button" class="mui-btn mui-btn-red mui-btn-block" style="width: 30%;float: right;margin-right: 15%;">完成</button>
+				</div>
+			</from>
+		</ul>
+	</div>
+
+	<body>
+		<script type="text/javascript" src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/app.js"></script>
+		<script type="text/javascript" src="../../js/validation.js"></script>
+		<script type="text/javascript" src="../../js/datasubmit.js"></script>
+		<script>
+			(function($, doc) {
+				$.init();
+				app.initOpenWindow();
+				var detailPage = null;
+				var result = null;
+				var varietyTem = null;
+				var manureTem = null;
+				var manureWayTem = null;
+				var getvariety, getmanure, getmanureWay;
+				$.plusReady(function() {
+					if(!detailPage) {
+						detailPage = plus.webview.currentWebview().opener();
+					}
+					document.getElementById('submit').addEventListener('tap', function() {
+						var gridDatas = document.body.getElementsByClassName('gridData');
+						var varietyTemp = gridDatas[0].value.toString();
+						var manureTemp = gridDatas[1].value.toString();
+						var manureWayTemp = gridDatas[2].value.toString();
+						mui.fire(detailPage, 'editOver', {
+							varietyTem: varietyTemp,
+							manureTem: manureTemp,
+							manureWayTem: manureWayTemp
+						});
+						result = app.validateModel2();
+
+						console.log("校验结果:" + result);
+						if(result != true) {
+							return false;
+						}
+						mui.back();
+					});
+					document.getElementById("cancel").addEventListener("tap", function() {
+						console.log("关闭页面");
+						mui.back();
+					});
+				});
+			}(mui, document));
+		</script>
+	</body>
+
+</html>

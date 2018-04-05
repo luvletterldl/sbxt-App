@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">添加此次采样项</h1>
+	</header>
+	<div class="mui-content">
+		<ul class="mui-table-view" id="clist">
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>指标1：</label>
+					<input id="var1" class="variety" type="text" validate-rule="required" />
+				</div>
+				<div class="mui-input-row">
+					<label>指标2：</label>
+					<input id="var2" class="variety" type="text" validate-rule="required" />
+				</div>
+				<div class="mui-input-row">
+					<label>指标3：</label>
+					<input id="var3" class="variety" type="text" validate-rule="required" />
+				</div>
+				<div class="mui-input-row">
+					<label>指标4：</label>
+					<input id="var4" class="variety" type="text" validate-rule="required" />
+				</div>
+			</from>
+		</ul>
+	</div>
+	<button id="addVar" class="mui-btn mui-btn-green" style="width: 80px; margin-left: 20px; margin-top: 20px;margin-bottom: 20px;">添加品种</button>
+	<button id='setOver' type="button" class="mui-btn mui-btn-block mui-btn-red">设定完成</button>
+
+	<body>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			(function($, doc) {
+				$.init();
+				$.plusReady(function() {
+					var varNum = 4;var varArr=[];var currentData;
+					//点击添加品种按钮后，自动向下添加输入框
+					document.getElementById("addVar").addEventListener('tap', function() {
+						varNum++;
+						var vars = document.querySelectorAll(".mui-input-row");
+						console.log(vars.length);
+						var start = vars[vars.length];
+//						var var4 = vars[3].querySelector('input');
+//						console.log(var4.value);
+						var lableTap = app.createElement('label',{innerHTML: "指标"+varNum+":"});
+						console.log("指标："+varNum)
+						var inputTag = app.createElement('input',{
+							attrs:{
+								id:"var"+varNum,
+								type:"text"
+							},
+							className:"variety"
+						});
+						var divTag = app.createElement('div',{
+							className:"mui-input-row"
+						});
+						divTag.appendChild(lableTap);
+						divTag.appendChild(inputTag);
+						vars[3].parentElement.insertBefore(divTag,start);
+					});
+					//点击设定完成，varArr数组中存储品种信息，$variety中存储varArr转字符换内容。
+					document.getElementById('setOver').addEventListener('tap',function(){
+						varArr=[];
+						console.log("ok");
+						var varData = document.querySelectorAll('.variety');
+						for(var i = 0; i < varData.length; i++){
+							var ipValue = varData[i].value.trim();
+							if(ipValue){
+								varArr.push(ipValue);
+								console.log("value:"+ipValue);
+							}
+						}
+						if(!varArr.length > 0){
+							mui.alert("至少添加一个采样指标","添加指标");
+							return false;
+						}
+						currentData = varArr;
+						if(currentData) {
+							app.pageInteraction.injection(currentData); //回传数据
+						} else {
+							mui.alert("至少添加一个采样指标","添加指标");
+						}
+						//使用页面间传值替代本地存储策略	
+//						localStorage.setItem("$variety",varArr);
+//						var varItems = localStorage.getItem("$variety");
+//						varArr = [];//添加完毕之后，重新初始化数组，以免添加重复品种数据
+//						console.log("添加品种完毕："+varItems);
+//						mui.toast("添加品种完毕："+varItems);
+					});
+				});
+			}(mui, document));
+		</script>
+	</body> 
+
+</html> 

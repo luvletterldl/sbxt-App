@@ -1,0 +1,163 @@
+.ui-page-login,
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	
+}
+.mui-content{/*height: 100%;*/margin-top: 10px;}
+/*登录界面代码*/
+.login-bg{
+	width: 100%;
+	height: 100%;
+	background: -webkit-linear-gradient(-65deg,#8101a1,#d3006d,  #e01900,  #e67500) fixed; /* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(-65deg,#8101a1,#d3006d, #e01900,  #e67500) fixed; /* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(-65deg, #8101a1,#d3006d,#e01900,  #e67500 ) fixed; /* Firefox 3.6 - 15 */
+	background: linear-gradient(to -65deg,#8101a1,#d3006d, #e01900, #e67500) fixed; /* 标准的语法 */
+	/*background: -webkit-linear-gradient(-65deg,#ce2e2e, #e67500); 
+	background: -o-linear-gradient(-65deg,#ce2e2e, #e67500); 
+	background: -moz-linear-gradient(-65deg,#ce2e2e, #e67500); 
+	background: linear-gradient(to -65deg,#ce2e2e, #e67500);*/
+}
+.login-logo{
+	width: 100%;
+	padding:20% 0 15% 0;
+	text-align: center;
+	margin: 0 auto;
+}
+.login-logo label{
+	position: fixed;
+	right: 20px;
+	top: 26px;
+	font-size: 14px;
+	color: #FFFFFF;
+}
+.login-content{
+	height: calc(100% - 333px);
+}
+.login-text{
+	width: 78%;
+	height: 50px;
+	margin: 0 11% 15px 11%;
+	border: 1px solid #ffffff;
+	border-radius: 100px;
+	text-indent: 60px;
+	color: #ffffff;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s, -webkit-box-shadow ease-in-out .15s
+}
+.login-text:focus{
+	border-color: #ffbbae;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255,255,255,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.025), 0 0 8px rgba(255,255,255,.4);
+    background: rgba(0,0,0,0.05);
+}
+.login-lab{
+	position: absolute;
+	top: 0px;
+	left: 14%;
+	color: #ffffff;
+}
+.login-bottom{
+	width: 78%;
+	height: 45px;
+	text-align: right;
+	color:#FFFFFF;
+	font-size: 14px;
+	line-height: 45px;
+	margin: 0 11%;
+}
+.login-bottom a{
+	color:#FFFFFF;
+	font-size: 16px;
+	line-height: 31px;
+	text-align: center;
+	margin-right: 10px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s, -webkit-box-shadow ease-in-out .15s
+}
+.login-bottom:hover,.login-bottom a:focus{
+	 outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255,255,255,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255,255,255,.6);
+}
+.login-bottom a i.mui-icon-gear{
+	color:#FFFFFF;
+	font-size: 22px;
+}
+.mui-input-group input::-webkit-input-placeholder {color:#fff;font-size: 12px; }   
+.mui-input-group input:-moz-placeholder {color:#fff;font-size: 12px;}
+/**/
+.mui-input-row1{
+	width: 100%;
+	height: 50px;
+	margin: 15px 0;
+	background: transparent;
+	position: relative;
+	
+}
+.mui-input-row1 .mui-input-clear~.mui-icon-clear, .mui-input-row1 .mui-input-password~.mui-icon-eye, .mui-input-row1 .mui-input-speech~.mui-icon-speech {
+    font-size: 20px;
+    position: absolute;
+    z-index: 1;
+    top: 10px;
+    right: 0;
+    width: 38px;
+    height: 38px;
+    text-align: center;
+    color: #999;
+}
+.mui-input-row label~input, .mui-input-row label~select, .mui-input-row label~textarea {
+    float: right;
+    width: 65%;
+    margin-bottom: 0;
+    padding-left: 0;
+    border: 0;
+.mui-btn-block1 {
+    font-size: 18px;
+    display: block;
+    width: 78%;
+    height: 50px;
+    margin: 5px 11% 0 11%;
+    margin-bottom: 10px;
+    padding: 15px 0;
+    color: #E80000;
+    background: #ffffff;
+}
+.login-remember{
+	height: 45px;
+	line-height: 45px;
+}
+.login-set{
+	float: right;
+}
+/*二级列表页样式修改*/
+.mui-grid-view .mui-grid-9 .mui-table-view-cell1{
+				width: 100%;
+				height: 50px;
+				line-height: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont.css" />
+	</head>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<a id="getLayoutParams" openwindow="setFieldLayouttest.html" class="mui-btn mui-btn-green mui-openwindow" style="width: 80px; margin-left: 10px; margin-top: 50px;margin-bottom: 25px;">设定参数</a>
+		<!--<a id="getLayoutParams" class="iconfont icon-wode1 mui-icon-right-nav mui-pull-right mui-openwindow" openwindow="setFieldLayouttest.html" style="line-height: 44px;"></a>-->
+		<h1 class="mui-title">种植规划图</h1>
+	</header>
+	<div class="mui-content">
+		<ul class="mui-table-view" id="clist">
+		</ul>
+	</div>
+	<button id="submit" type="button" class="mui-btn mui-btn-red mui-btn-block" style="display:none;width: 30%;float: right;margin-right: 35%;">完成</button>
+
+	<body>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../../js/dealLayout.js"></script>
+		<script>
+			(function($, doc) {
+				$.init();
+				app.initOpenWindow();
+				$.plusReady(function() {
+					//初始化---绑定打开的页面
+					var childPage = null;
+					var detailPage = null;
+					var variety = null;
+					var manure = null;
+					var manureWay = null;
+					var currentData = null;
+					var gridOne = [];
+					var generateDate = app.utils.dateFormat(new Date(), "yyyy-MM-dd HH:mm:ss");
+					var gridsJSONDatas = {
+						"gridsDatas": []
+					};
+					var gridsJSONData = {
+						"generateDate": generateDate,
+						"gridsData": [],
+						"extraData": ""
+					};
+					var gridsDatas = null;
+					app.pageInteraction.initOpenwindow([{
+						ele: "getLayoutParams",
+						id: "setFieldLayouttest.html",
+						url: "setFieldLayouttest.html", //查询线路
+						obtain: function(data) {
+							detailPage = plus.webview.getWebviewById('addGridInfoTest.html');
+							app.log.info(data, "来自设置试验田规格");
+							var elemen = document.getElementById('clist');
+							//生成规划图阶段一
+							deall.dealGrids(data, elemen);
+							document.getElementById('getLayoutParams').style.display = "none";
+							localStorage.setItem("$gridsNum", (data.col * data.row).toString());
+							console.log("--" + localStorage.getItem('$gridsNum'));
+							var gridNum = document.getElementsByClassName('grid');
+							//在第一个表格上添加点击弹出编辑子页面事件
+							gridNum[0].addEventListener('tap', function() {
+								childPage = plus.webview.create("addGridInfoTest.html", "addGridInfoTest.html", {
+									width: '90%',
+									height: "500px",
+									margin: "auto",
+									position: "relative",
+									borderRadius: "25px",
+									background: "rgba(0,0,0,0.5)",
+									scrollIndicator: 'none',
+									scalable: false,
+									popGesture: 'none'
+								});
+								childPage.addEventListener("loaded", function() {
+									childPage.show('fade-in', 300);
+									childPage = null;
+								}, false);
+								document.getElementById('submit').style.display = "block";
+							});
+							console.log(gridNum.length);
+							//子页面编辑完成点击下一条时触发此事件
+							window.addEventListener('editOver', function(e) {
+								gridOne.push(e.detail);
+								console.log("push OK!" + JSON.stringify(e.detail));
+								for(var i = 0; i < gridOne.length; i++) {
+									var istr = (i + 1).toString();
+									var gridZ = document.getElementById(istr);
+									gridZ.innerHTML = gridZ.getAttribute('id') + "<h5>品种：" + gridOne[i].varietyTem + "</h5>" + "<h5>肥料：" + gridOne[i].manureTem + "</h5>" + "<h5>施肥方法：" + gridOne[i].manureWayTem + "</h5>";
+								}
+							});
+
+							document.getElementById('submit').addEventListener('tap', function() {
+								for(var i = 0; i < gridOne.length; i++) {
+									gridsJSONData.gridsData.push(gridOne[i]);
+								}
+								gridsJSONData.extraData = data;
+								if(!localStorage.getItem('$gridsDatas')) {
+									gridsJSONDatas.gridsDatas.push(gridsJSONData);
+									localStorage.setItem('$gridsDatas', JSON.stringify(gridsJSONDatas));
+								} else {
+									var getGridsDatasStr = localStorage.getItem('$gridsDatas');
+									var getGridsDatasJSON = JSON.parse(getGridsDatasStr);
+									getGridsDatasJSON.gridsDatas.push(gridsJSONData);
+									localStorage.setItem('$gridsDatas', JSON.stringify(getGridsDatasJSON));
+								}
+								console.log(localStorage.getItem('$gridsDatas'));
+							});
+						}
+					}]);
+				});
+			}(mui, document));
+		</script>
+	</body>
+
+</html>
