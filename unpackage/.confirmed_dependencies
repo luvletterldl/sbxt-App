@@ -1,53 +1,54 @@
 {
-	"html/plantSample/addVariety.html": {
-		"refer": [
-			"html/plantSample/addVariety.html"
-		],
-		"resources": []
-	},
-	"html/plantSample/pSMain.html": {
-		"refer": [
-			"html/plantSample/addVariety.html",
-			"html/plantSample/addApplyFertileWay.html",
-			"html/plantSample/setFieldLayouttest.html",
-			"html/test.html",
-			"html/plantSample/layout.html",
-			"html/plantSample/addGridInfo.html",
-			"html/plantSample/layoutTest.html",
-			"html/plantSample/mapTest.html",
-			"html/plantSample/layoutShow.html",
-			"html/plantSample/addGridInfoTest.html",
-			"html/plantSample/dealPicture.html"
-		],
-		"resources": []
-	},
-	"html/plantSample/setFieldLayouttest.html": {
-		"refer": [
-			"html/plantSample/addVariety.html",
-			"html/plantSample/addApplyFertileWay.html",
-			"html/plantSample/layout.html",
-			"html/plantSample/addSampItems.html"
-		]
-	},
-	"html/plantSample/layout.html": {
-		"refer": [
-			"html/plantSample/setFieldLayouttest.html",
-			"html/plantSample/addGridInfo.html",
-			"html/plantSample/addGridInfoTest.html",
-			"html/plantSample/addPlantHeight.html"
-		]
-	},
-	"html/plantSample/layoutTest.html": {
-		"refer": [
-			"html/plantSample/setFieldLayouttest.html",
-			"html/plantSample/addGridInfo.html",
-			"html/plantSample/addGridInfoTest.html"
-		]
-	},
-	"html/plantSample/layoutShow.html": {
-		"refer": [
-			"html/plantSample/setFieldLayouttest.html",
-			"html/plantSample/layoutShowDetail.html"
-		]
-	}
+  "html/plantSample/addVariety.html": {
+    "refer": [
+      "html/plantSample/addVariety.html"
+    ],
+    "resources": []
+  },
+  "html/plantSample/pSMain.html": {
+    "refer": [
+      "html/plantSample/addVariety.html",
+      "html/plantSample/addApplyFertileWay.html",
+      "html/plantSample/setFieldLayouttest.html",
+      "html/test.html",
+      "html/plantSample/layout.html",
+      "html/plantSample/addGridInfo.html",
+      "html/plantSample/layoutTest.html",
+      "html/plantSample/mapTest.html",
+      "html/plantSample/layoutShow.html",
+      "html/plantSample/addGridInfoTest.html",
+      "html/plantSample/dealPicture.html"
+    ],
+    "resources": []
+  },
+  "html/plantSample/setFieldLayouttest.html": {
+    "refer": [
+      "html/plantSample/addVariety.html",
+      "html/plantSample/addApplyFertileWay.html",
+      "html/plantSample/layout.html",
+      "html/plantSample/addSampItems.html"
+    ]
+  },
+  "html/plantSample/layout.html": {
+    "refer": [
+      "html/plantSample/setFieldLayouttest.html",
+      "html/plantSample/addGridInfo.html",
+      "html/plantSample/addGridInfoTest.html",
+      "html/plantSample/addPlantHeight.html",
+      "html/plantSample/addSPAData.html"
+    ]
+  },
+  "html/plantSample/layoutTest.html": {
+    "refer": [
+      "html/plantSample/setFieldLayouttest.html",
+      "html/plantSample/addGridInfo.html",
+      "html/plantSample/addGridInfoTest.html"
+    ]
+  },
+  "html/plantSample/layoutShow.html": {
+    "refer": [
+      "html/plantSample/setFieldLayouttest.html",
+      "html/plantSample/layoutShowDetail.html"
+    ]
+  }
 }

@@ -9,7 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="../../css/iconfont.css" />
 	</head>
 	<header class="mui-bar mui-bar-nav">
-		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
 		<a id="getLayoutParams" openwindow="setFieldLayouttest.html" class="mui-btn mui-btn-green mui-openwindow" style="width: 80px; margin-left: 10px; margin-top: 50px;margin-bottom: 25px;">设定参数</a>
 		<!--<a id="getLayoutParams" class="iconfont icon-wode1 mui-icon-right-nav mui-pull-right mui-openwindow" openwindow="setFieldLayouttest.html" style="line-height: 44px;"></a>-->
 		<h1 class="mui-title">种植规划图</h1>
@@ -41,7 +41,9 @@
 					var currentData = null;
 					var gridOne = []; //基本数据
 					var gridPlantH = []; //植株高度数据
+					var gridSpad = []; //SPAD数据
 					var pageTemp = 0;
+					var urls = ["addPlantHeight.html","addSPAData.html"];
 					var generateDate = app.utils.dateFormat(new Date(), "yyyy-MM-dd HH:mm:ss");
 					var gridsJSONDatas = {
 						"gridsDatas": []
@@ -70,26 +72,43 @@
 							var sampBtns = document.getElementsByClassName('sampbtn');
 							console.log("采样项个数：" + sampBtns.length);
 							//if(sampBtns[0].value == "植株高度") {
-							sampBtns[0].addEventListener('tap', function() {
-								childPage = plus.webview.create("addPlantHeight.html", "addPlantHeight.html", {
-									width: '90%',
-									height: "500px",
-									margin: "auto",
-									position: "relative",
-									borderRadius: "25px",
-									background: "rgba(0,0,0,0.5)",
-									scrollIndicator: 'none',
-									scalable: false,
-									popGesture: 'none'
+								sampBtns[0].addEventListener('tap', function() {
+									childPage = plus.webview.create(urls[0], urls[0], {
+										width: '90%',
+										height: "300px",
+										margin: "auto",
+										position: "relative",
+										borderRadius: "25px",
+										background: "rgba(0,0,0,0.5)",
+										scrollIndicator: 'none',
+										scalable: false,
+										popGesture: 'none'
+									});
+									childPage.addEventListener("loaded", function() {
+										childPage.show('fade-in', 300);
+										childPage = null;
+									}, false);
 								});
-								childPage.addEventListener("loaded", function() {
-									childPage.show('fade-in', 300);
-									childPage = null;
-								}, false);
-							})
+								sampBtns[1].addEventListener('tap', function() {
+									childPage = plus.webview.create(urls[1], urls[1], {
+										width: '90%',
+										height: "300px",
+										margin: "auto",
+										position: "relative",
+										borderRadius: "25px",
+										background: "rgba(0,0,0,0.5)",
+										scrollIndicator: 'none',
+										scalable: false,
+										popGesture: 'none'
+									});
+									childPage.addEventListener("loaded", function() {
+										childPage.show('fade-in', 300);
+										childPage = null;
+									}, false);
+								})
 							//};
 
-							//子界面编辑完植株高度的时候触发的父界面的事件
+							//子界面编辑完  植株高度  的时候触发的父界面的事件
 							window.addEventListener('editPlantHeight', function(e) {
 								gridPlantH.push(e.detail);
 								console.log("sHpush OK!" + JSON.stringify(e.detail));
@@ -97,6 +116,17 @@
 									var istr = (i + 1).toString();
 									var gridSH = document.getElementById(istr);
 									gridSH.innerHTML = gridSH.getAttribute('id') + "<h5>植株高度：" + gridPlantH[i].plHeightTemp + "cm</h5>";
+								}
+							})
+							
+							//子界面编辑完  SPAD 的时候触发的父界面的事件
+							window.addEventListener('editSPADHeight', function(e) {
+								gridSpad.push(e.detail);
+								console.log("spadpush OK!" + JSON.stringify(e.detail));
+								for(var i = 0; i < gridSpad.length; i++) {
+									var istr = (i + 1).toString();
+									var gridSD = document.getElementById(istr);
+									gridSD.innerHTML = gridSH.getAttribute('id') + "<h5>植株高度：" + gridSpad[i].plHeightTemp + "cm</h5>";
 								}
 							})
 
@@ -109,7 +139,7 @@
 							gridNum[0].addEventListener('tap', function() {
 								childPage = plus.webview.create("addGridInfoTest.html", "addGridInfoTest.html", {
 									width: '90%',
-									height: "500px",
+									height: "300px",
 									margin: "auto",
 									position: "relative",
 									borderRadius: "25px",
@@ -136,7 +166,7 @@
 								}
 							});
 
-							var merge = function(jsonone, jsontwo) {
+							var merge = function(jsonone, jsontwo, jsonthree) {
 								var resultJsonObject = {};
 								for(var attr in jsonone) {
 									resultJsonObject[attr] = jsonone[attr];
@@ -144,12 +174,15 @@
 								for(var attr in jsontwo) {
 									resultJsonObject[attr] = jsontwo[attr];
 								}
+								for(var attr in jsonthree) {
+									resultJsonObject[attr] = jsonthree[attr];
+								}
 								return resultJsonObject;
 							};
 
 							document.getElementById('submit').addEventListener('tap', function() {
 								for(var i = 0; i < gridOne.length; i++) {
-									gridsJSONData.gridsData.push(merge(gridOne[i],gridPlantH[i]));
+									gridsJSONData.gridsData.push(merge(gridOne[i],gridPlantH[i],gridSpad[i]));
 									console.log("基本" + JSON.stringify(gridOne[i]) + "-植株高度-" + JSON.stringify(gridPlantH[i]));
 								}
 								gridsJSONData.extraData = data;
