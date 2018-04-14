@@ -64,7 +64,7 @@
 			(function($, doc) {
 				$.init();
 				app.initOpenWindow();
-				var gridNum = 1;var gridsNum = null;
+				var gridNumP = 1;var gridsNum = null;
 				var detailPage = null;
 				var result = null;
 				var plHeight = null;
@@ -85,8 +85,8 @@
 							return false;
 						}
 						//校验通过后，触发父页面事件
-						gridNum++;
-						if(gridNum>(parseInt(gridsNum)+1)){
+						gridNumP++;
+						if(gridNumP>(parseInt(gridsNum)+1)){
 							document.getElementById('gridId').innerText = "";
 							mui.alert("全部编辑完成","编辑表格");
 							return false;
@@ -94,10 +94,10 @@
 						var gridDatas = document.body.getElementsByClassName('gridData');
 						var plHeightTemp = gridDatas[0].value.toString();
 						mui.fire(detailPage, 'editPlantHeight', {
-							gridNum: gridNum-1,
+							gridNumP: gridNumP-1,
 							plHeightTemp: plHeightTemp
 						});
-						document.getElementById('gridId').innerText = gridNum;
+						document.getElementById('gridId').innerText = gridNumP;
 						//手动重置表单
 						for(var i = 0; i < gridDatas.length; i++){
 							gridDatas[i].value = null;
