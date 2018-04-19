@@ -17,7 +17,7 @@
 		<ul class="mui-table-view" id="clist">
 		</ul>
 	</div>
-	<button id='upload' type="button" class="mui-btn mui-btn-block mui-btn-primary">上传此条数据</button>
+	<!--<button id='upload' type="button" class="mui-btn mui-btn-block mui-btn-primary">上传此条数据</button>-->
 
 	<body>
 		<script type="text/javascript" src="../../js/mui.min.js"></script>
@@ -37,32 +37,49 @@
 						grids[i].innerHTML = grids[i].getAttribute('id') + "<h5>品种：" + dataJson.gridsDatas[j].gridsData[i].varietyTem + "</h5>" + "<h5>肥料：" + dataJson.gridsDatas[j].gridsData[i].manureTem + "</h5>" + "<h5>施肥方法：" + dataJson.gridsDatas[j].gridsData[i].manureWayTem + "</h5>";
 					}
 				}
+				grids[0].addEventListener('tap', function() {
+					childPage = plus.webview.create("browsGridDetail.html", "browsGridDetail.html", {
+						width: '90%',
+						height: "600px",
+						margin: "auto",
+						position: "relative",
+						borderRadius: "25px",
+						background: "rgba(0,0,0,0.5)",
+						scrollIndicator: 'none',
+						scalable: false,
+						popGesture: 'none'
+					},{Data: dataJson.gridsDatas[index]});
+					childPage.addEventListener("loaded", function() {
+						childPage.show('fade-in', 300);
+						childPage = null;
+					}, false);
+				})
 				var uploadTime = app.utils.dateFormat(new Date(), "yyyy-MM-dd HH:mm:ss").toString();
 				var thisData = JSON.stringify(dataJson.gridsDatas[index]);
 				console.log("此条数据" + typeof(uploadTime) + uploadTime + typeof(thisData) + thisData);
-				var sub = document.getElementById('upload');
+				//				var sub = document.getElementById('upload');
 				var postData = {
-					"upltime":uploadTime,
-					"message":thisData
+					"upltime": uploadTime,
+					"message": thisData
 				};
-				sub.addEventListener('tap', function() {
-					mui.toast("数据上传成功");
-					mui.ajax('http://172.25.141.161:8888/addOne', {
-						data: postData,
-						headers: {
-							'Content-Type': 'application/json'
-						},
-						dataType: 'text', //服务器返回文本格式数据
-						type: 'POST', //HTTP请求类型
-						success: function(data) {
-							console.log(data);
-						},
-						error: function(xhr, type, errorThrown) {
-							//异常处理
-							console.log(type + '-' + errorThrown + '-' + xhr);
-						}
-					});
-				})
+				//				sub.addEventListener('tap', function() {
+				//					mui.toast("数据上传成功");
+				//					mui.ajax('http://172.25.141.161:8888/addOne', {
+				//						data: postData,
+				//						headers: {
+				//							'Content-Type': 'application/json'
+				//						},
+				//						dataType: 'text', //服务器返回文本格式数据
+				//						type: 'POST', //HTTP请求类型
+				//						success: function(data) {
+				//							console.log(data);
+				//						},
+				//						error: function(xhr, type, errorThrown) {
+				//							//异常处理
+				//							console.log(type + '-' + errorThrown + '-' + xhr);
+				//						}
+				//					});
+				//				})
 
 			});
 		</script>

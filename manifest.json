@@ -234,6 +234,13 @@
 					"html/plantSample/layoutShowDetail.html"
 				],
 				"priority": 0
+			},
+			"html/plantSample/layoutShowDetail.html": {
+				"resources": [],
+				"refer": [
+					"html/plantSample/browsGridDetail.html"
+				],
+				"priority": 0
 			}
 		},
 		"idle": {

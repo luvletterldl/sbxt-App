@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont.css" />
+		<title></title>
+	</head>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">种植规划图第<span id='numId'></span>格详情</h1>
+	</header>
+
+	<body>
+		<div class="mui-content">
+			<ul class="mui-table-view" id="clist">
+				<form class="mui-input-group">
+					<div class="mui-input-row">
+						<label>品种</label>
+						<input id="variety" class="gridData" placeholder="品种" type="text" />
+					</div>
+					<div class="mui-input-row">
+						<label>施肥</label>
+						<input id="manure" class="gridData" type="text" placeholder="肥料种类" />
+					</div>
+					<div class="mui-input-row">
+						<label>施肥方法</label>
+						<input id="manureWay" class="gridData" type="text" placeholder="施肥方法"/>
+					</div>
+					<div class="mui-input-row">
+						<label>植株高度</label>
+						<input id="plantHeight" class="gridData" type="text" placeholder="施肥方法"/>
+					</div>
+					<div class="mui-input-row">
+						<label>SPAD</label>
+						<input id="spad" class="gridData" type="text" placeholder="施肥方法"/>
+					</div>
+				</form>
+			</ul>
+		</div>
+		<button type="button" id="next" class='mui-badge-blue'>下一格</button>
+		<script type="text/javascript" src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/app.js"></script>
+		<script type="text/javascript" src="../../js/dealLayout.js"></script>
+		<script>
+			mui.init();
+			mui.plusReady(function() {
+				var i = 0;
+				document.getElementById('numId').innerText = i+1;
+				var self = plus.webview.currentWebview();
+				var dataJson = self.Data;
+				console.log("当前采样数据：" + JSON.stringify(dataJson.gridsData));
+				var groupOne = dataJson.gridsData[0];
+				document.getElementById('variety').value = groupOne.varietyTem;
+				document.getElementById('manure').value = groupOne.manureTem;
+				document.getElementById('manureWay').value = groupOne.manureWayTem;
+				document.getElementById('plantHeight').value = groupOne.plHeightTemp;
+				document.getElementById('spad').value = groupOne.spadDataTemp;
+				groupOne = null;
+				var setform = function (groupOne){
+					document.getElementById('variety').value = groupOne.varietyTem;
+					document.getElementById('manure').value = groupOne.manureTem;
+					document.getElementById('manureWay').value = groupOne.manureWayTem;
+					document.getElementById('plantHeight').value = groupOne.plHeightTemp;
+					document.getElementById('spad').value = groupOne.spadDataTemp;
+				}
+				document.getElementById('next').addEventListener('tap',function(){
+					console.log(dataJson.gridsData.length+"-"+i);
+					if(i>dataJson.gridsData.length-2){
+						mui.toast("没有更多数据了");
+						return false;
+					}
+					var groupOne = dataJson.gridsData[i+1];
+					setform(groupOne);
+					i++;
+					document.getElementById('numId').innerText = i+1;
+				});
+			});
+		</script>
+	</body>
+
+</html>
