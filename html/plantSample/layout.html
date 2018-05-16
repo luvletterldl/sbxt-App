@@ -18,7 +18,7 @@
 		<ul class="mui-table-view" id="clist">
 		</ul>
 	</div>
-	<button id="submit" type="button" class="mui-btn mui-btn-red mui-btn-block" style="display:none;width: 30%;float: right;margin-right: 35%;">完成</button>
+	<button id="submit" type="button" class="mui-btn mui-btn-red mui-btn-block" style="width: 30%;float: right;margin-right: 35%;">完成</button>
 	<div id="samplBtns" class="mui-content" style="display: none;">
 		<!--<button type="button" class="mui-btn mui-btn-red sampbtn">123</button>-->
 	</div>
@@ -54,6 +54,11 @@
 						"extraData": ""
 					};
 					var gridsDatas = null;
+					var setParam = document.getElementById('getLayoutParams');
+					setTimeout(function(){	//等待初始化完成之后进行模拟点击操作
+						mui.trigger(setParam, 'touchstart'),
+						mui.trigger(setParam, 'tap');
+					}, 100),
 					app.pageInteraction.initOpenwindow([{
 						ele: "getLayoutParams",
 						id: "setFieldLayouttest.html",
@@ -139,7 +144,7 @@
 							gridNum[0].addEventListener('tap', function() {
 								childPage = plus.webview.create("addGridInfoTest.html", "addGridInfoTest.html", {
 									width: '90%',
-									height: "300px",
+									height: "500px",
 									margin: "auto",
 									position: "relative",
 									borderRadius: "25px",
@@ -155,16 +160,30 @@
 								document.getElementById('submit').style.display = "block";
 							});
 							console.log(gridNum.length);
+							
+							for(var i = 0; i < data.col*data.row; i++){
+								var gridOneTem = {
+									"gridNum": i+1,
+									"varietyTem": data.variety,
+									"manureTem": data.manure
+								};
+								gridOne.push(gridOneTem);
+								var istr = (i + 1).toString();
+								var gridZ = document.getElementById(istr);
+								gridZ.innerHTML = gridZ.getAttribute('id') + "<h5>品种：" + data.variety + "</h5>" + "<h5>肥料及施肥方法：" + data.manure + "</h5>" + "</h5>";
+							}
+							console.log(JSON.stringify(gridOne));
+							
 							//子页面编辑完成点击下一条时触发此事件
-							window.addEventListener('editOver', function(e) {
-								gridOne.push(e.detail);
-								console.log("push OK!" + JSON.stringify(e.detail));
-								for(var i = 0; i < gridOne.length; i++) {
-									var istr = (i + 1).toString();
-									var gridZ = document.getElementById(istr);
-									gridZ.innerHTML = gridZ.getAttribute('id') + "<h5>品种：" + gridOne[i].varietyTem + "</h5>" + "<h5>肥料：" + gridOne[i].manureTem + "</h5>" + "<h5>施肥方法：" + gridOne[i].manureWayTem + "</h5>";
-								}
-							});
+//							window.addEventListener('editOver', function(e) {
+//								gridOne.push(e.detail);
+//								console.log("push OK!" + JSON.stringify(e.detail));
+//								for(var i = 0; i < gridOne.length; i++) {
+//									var istr = (i + 1).toString();
+//									var gridZ = document.getElementById(istr);
+//									gridZ.innerHTML = gridZ.getAttribute('id') + "<h5>品种：" + gridOne[i].varietyTem + "</h5>" + "<h5>肥料：" + gridOne[i].manureTem + "</h5>" + "<h5>施肥方法：" + gridOne[i].manureWayTem + "</h5>";
+//								}
+//							});
 
 							var merge = function(jsonone, jsontwo, jsonthree) {
 								var resultJsonObject = {};

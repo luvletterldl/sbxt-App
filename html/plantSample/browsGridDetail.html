@@ -21,13 +21,13 @@
 						<input id="variety" class="gridData" placeholder="品种" type="text" />
 					</div>
 					<div class="mui-input-row">
-						<label>施肥</label>
+						<label>施肥及施肥方法</label>
 						<input id="manure" class="gridData" type="text" placeholder="肥料种类" />
 					</div>
-					<div class="mui-input-row">
+					<!--<div class="mui-input-row">
 						<label>施肥方法</label>
 						<input id="manureWay" class="gridData" type="text" placeholder="施肥方法"/>
-					</div>
+					</div>-->
 					<div class="mui-input-row">
 						<label>植株高度</label>
 						<input id="plantHeight" class="gridData" type="text" placeholder="施肥方法"/>
@@ -54,14 +54,14 @@
 				var groupOne = dataJson.gridsData[0];
 				document.getElementById('variety').value = groupOne.varietyTem;
 				document.getElementById('manure').value = groupOne.manureTem;
-				document.getElementById('manureWay').value = groupOne.manureWayTem;
+//				document.getElementById('manureWay').value = groupOne.manureWayTem;
 				document.getElementById('plantHeight').value = groupOne.plHeightTemp;
 				document.getElementById('spad').value = groupOne.spadDataTemp;
 				groupOne = null;
 				var setform = function (groupOne){
 					document.getElementById('variety').value = groupOne.varietyTem;
 					document.getElementById('manure').value = groupOne.manureTem;
-					document.getElementById('manureWay').value = groupOne.manureWayTem;
+//					document.getElementById('manureWay').value = groupOne.manureWayTem;
 					document.getElementById('plantHeight').value = groupOne.plHeightTemp;
 					document.getElementById('spad').value = groupOne.spadDataTemp;
 				}

@@ -170,7 +170,11 @@
 							//alert('Geolocation\nLatitude:' + p.coords.latitude + '\nLongitude:' + p.coords.longitude + '\nAltitude:' + p.coords.altitude);
 							document.getElementById("lang").value = p.coords.longitude;
 							document.getElementById("long").value = p.coords.latitude;
-							document.getElementById("place").value = p.addresses;
+							if(document.getElementById("place").value = p.addresses){
+								document.getElementById("place").value = p.addresses
+							} else {
+								document.getElementById("place").value = '河南郑州市东四环路';
+							}
 						}, function(e) {
 							alert('请保持网络畅通并请打开应用的定位权限');
 						});

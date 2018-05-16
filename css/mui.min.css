@@ -1332,7 +1332,7 @@ input[type='submit']:enabled:active, input[type='submit'].mui-active:enabled,
 {
     color: #fff;
     border: 1px solid #9d4ddd;
-    background: -webkit-gradient(linear, left center, right center, color-stop(0%, #5905fe), color-stop(100%, #17e2f8));
+    background: -webkit-gradient(linear, left center, right center, color-stop(0%, #05d0fe), color-stop(100%, #17e2f8));
     background: -webkit-linear-gradient(left center, right center, #5905fe 0%, #17e2f8 100%);
     background: linear-gradient(left center, right center, #5905fe 0%, #17e2f8 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@color1', endColorstr='@color2',GradientType=1 );
@@ -1523,7 +1523,7 @@ input[type='submit']:enabled:active, input[type='submit'].mui-active:enabled,
     padding-top:20px;
 
     border-bottom: 0;
-    background: -webkit-linear-gradient( 0deg, #00d7d7  , #088bfa); /* Safari 5.1 - 6.0 */
+    background: -webkit-linear-gradient( 0deg, #00d7cd , #08fa74); /* Safari 5.1 - 6.0 */
     background: -o-linear-gradient(0deg, #00d7d7  , #088bfa); /* Opera 11.1 - 12.0 */
     background: -moz-linear-gradient(0deg, #00d7d7  , #088bfa); /* Firefox 3.6 - 15 */
     background: linear-gradient(to 0deg, #00d7d7  , #088bfa); /* 标准的语法 */

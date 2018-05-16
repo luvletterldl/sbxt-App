@@ -34,7 +34,7 @@
 				var grids = document.querySelectorAll('.grid');
 				for(var j = 0; j < index + 1; j++) {
 					for(var i = 0; i < grids.length; i++) {
-						grids[i].innerHTML = grids[i].getAttribute('id') + "<h5>品种：" + dataJson.gridsDatas[j].gridsData[i].varietyTem + "</h5>" + "<h5>肥料：" + dataJson.gridsDatas[j].gridsData[i].manureTem + "</h5>" + "<h5>施肥方法：" + dataJson.gridsDatas[j].gridsData[i].manureWayTem + "</h5>";
+						grids[i].innerHTML = grids[i].getAttribute('id') + "<h5>品种：" + dataJson.gridsDatas[j].gridsData[i].varietyTem + "</h5>" + "<h5>肥料及施肥方法：" + dataJson.gridsDatas[j].gridsData[i].manureTem + "</h5>" + "</h5>";
 					}
 				}
 				grids[0].addEventListener('tap', function() {
