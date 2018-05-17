@@ -22,19 +22,31 @@
 					</div>
 					<div class="mui-input-row">
 						<label>施肥及施肥方法</label>
-						<input id="manure" class="gridData" type="text" placeholder="肥料种类" />
+						<input id="manure" class="gridData" type="text" placeholder="施肥及施肥方法" />
 					</div>
-					<!--<div class="mui-input-row">
-						<label>施肥方法</label>
-						<input id="manureWay" class="gridData" type="text" placeholder="施肥方法"/>
-					</div>-->
 					<div class="mui-input-row">
 						<label>植株高度</label>
-						<input id="plantHeight" class="gridData" type="text" placeholder="施肥方法"/>
+						<input id="plantHeight" class="gridData" type="text" placeholder="植株高度"/>
 					</div>
 					<div class="mui-input-row">
 						<label>SPAD</label>
-						<input id="spad" class="gridData" type="text" placeholder="施肥方法"/>
+						<input id="spad" class="gridData" type="text" placeholder="SPAD"/>
+					</div>
+					<div class="mui-input-row">
+						<label>含水量</label>
+						<input id="moisture" class="gridData" type="text" placeholder="含水量"/>
+					</div>
+					<div class="mui-input-row">
+						<label>叶片重量</label>
+						<input id="leafWeight" class="gridData" type="text" placeholder="叶片重量"/>
+					</div>
+					<div class="mui-input-row">
+						<label>叶面积指数</label>
+						<input id="leafArea" class="gridData" type="text" placeholder="叶面积指数"/>
+					</div>
+					<div class="mui-input-row">
+						<label>穗长</label>
+						<input id="earLength" class="gridData" type="text" placeholder="穗长"/>
 					</div>
 				</form>
 			</ul>
@@ -54,16 +66,23 @@
 				var groupOne = dataJson.gridsData[0];
 				document.getElementById('variety').value = groupOne.varietyTem;
 				document.getElementById('manure').value = groupOne.manureTem;
-//				document.getElementById('manureWay').value = groupOne.manureWayTem;
-				document.getElementById('plantHeight').value = groupOne.plHeightTemp;
-				document.getElementById('spad').value = groupOne.spadDataTemp;
+				if(groupOne.plHeightTemp) document.getElementById('plantHeight').value = groupOne.plHeightTemp;
+				if(groupOne.spadDataTemp) document.getElementById('spad').value = groupOne.spadDataTemp;
+				if(groupOne.moistureTemp) document.getElementById('moisture').value = groupOne.moistureTemp;
+				if(groupOne.leafWeightTemp) document.getElementById('leafWeight').value = groupOne.leafWeightTemp;
+				if(groupOne.leafAreaTemp) document.getElementById('leafArea').value = groupOne.leafAreaTemp;
+				if(groupOne.earLengthTemp) document.getElementById('earLength').value = groupOne.earLengthTemp;
+				
 				groupOne = null;
 				var setform = function (groupOne){
 					document.getElementById('variety').value = groupOne.varietyTem;
 					document.getElementById('manure').value = groupOne.manureTem;
-//					document.getElementById('manureWay').value = groupOne.manureWayTem;
-					document.getElementById('plantHeight').value = groupOne.plHeightTemp;
-					document.getElementById('spad').value = groupOne.spadDataTemp;
+					if(groupOne.plHeightTemp) document.getElementById('plantHeight').value = groupOne.plHeightTemp;
+					if(groupOne.spadDataTemp) document.getElementById('spad').value = groupOne.spadDataTemp;
+					if(groupOne.moistureTemp) document.getElementById('moisture').value = groupOne.moistureTemp;
+					if(groupOne.leafWeightTemp) document.getElementById('leafWeight').value = groupOne.leafWeightTemp;
+					if(groupOne.leafAreaTemp) document.getElementById('leafArea').value = groupOne.leafAreaTemp;
+					if(groupOne.earLengthTemp) document.getElementById('earLength').value = groupOne.earLengthTemp;
 				}
 				document.getElementById('next').addEventListener('tap',function(){
 					console.log(dataJson.gridsData.length+"-"+i);

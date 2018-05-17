@@ -1,65 +1,71 @@
 {
-  "html/plantSample/addVariety.html": {
-    "refer": [
-      "html/plantSample/addVariety.html"
-    ],
-    "resources": []
-  },
-  "html/plantSample/pSMain.html": {
-    "refer": [
-      "html/plantSample/addVariety.html",
-      "html/plantSample/addApplyFertileWay.html",
-      "html/plantSample/setFieldLayouttest.html",
-      "html/test.html",
-      "html/plantSample/layout.html",
-      "html/plantSample/addGridInfo.html",
-      "html/plantSample/layoutTest.html",
-      "html/plantSample/mapTest.html",
-      "html/plantSample/layoutShow.html",
-      "html/plantSample/addGridInfoTest.html",
-      "html/plantSample/dealPicture.html",
-      "html/plantSample/clearData.html"
-    ],
-    "resources": []
-  },
-  "html/plantSample/setFieldLayouttest.html": {
-    "refer": [
-      "html/plantSample/addVariety.html",
-      "html/plantSample/addApplyFertileWay.html",
-      "html/plantSample/layout.html",
-      "html/plantSample/addSampItems.html"
-    ],
-    "resources": []
-  },
-  "html/plantSample/layout.html": {
-    "refer": [
-      "html/plantSample/setFieldLayouttest.html",
-      "html/plantSample/addGridInfo.html",
-      "html/plantSample/addGridInfoTest.html",
-      "html/plantSample/addPlantHeight.html",
-      "html/plantSample/addSPAData.html"
-    ],
-    "resources": []
-  },
-  "html/plantSample/layoutTest.html": {
-    "refer": [
-      "html/plantSample/setFieldLayouttest.html",
-      "html/plantSample/addGridInfo.html",
-      "html/plantSample/addGridInfoTest.html"
-    ],
-    "resources": []
-  },
-  "html/plantSample/layoutShow.html": {
-    "refer": [
-      "html/plantSample/setFieldLayouttest.html",
-      "html/plantSample/layoutShowDetail.html"
-    ],
-    "resources": []
-  },
-  "html/plantSample/layoutShowDetail.html": {
-    "refer": [
-      "html/plantSample/browsGridDetail.html"
-    ],
-    "resources": []
-  }
+	"html/plantSample/addVariety.html": {
+		"refer": [
+			"html/plantSample/addVariety.html"
+		],
+		"resources": []
+	},
+	"html/plantSample/pSMain.html": {
+		"refer": [
+			"html/plantSample/addVariety.html",
+			"html/plantSample/addApplyFertileWay.html",
+			"html/plantSample/setFieldLayouttest.html",
+			"html/test.html",
+			"html/plantSample/layout.html",
+			"html/plantSample/addGridInfo.html",
+			"html/plantSample/layoutTest.html",
+			"html/plantSample/mapTest.html",
+			"html/plantSample/layoutShow.html",
+			"html/plantSample/addGridInfoTest.html",
+			"html/plantSample/dealPicture.html",
+			"html/plantSample/clearData.html"
+		],
+		"resources": []
+	},
+	"html/plantSample/setFieldLayouttest.html": {
+		"refer": [
+			"html/plantSample/addVariety.html",
+			"html/plantSample/addApplyFertileWay.html",
+			"html/plantSample/layout.html",
+			"html/plantSample/addSampItems.html"
+		],
+		"resources": []
+	},
+	"html/plantSample/layout.html": {
+		"refer": [
+			"html/plantSample/setFieldLayouttest.html",
+			"html/plantSample/addGridInfo.html",
+			"html/plantSample/addGridInfoTest.html",
+			"html/plantSample/addPlantHeight.html",
+			"html/plantSample/addSPAData.html",
+			"html/templates/addMoisture.html",
+			"html/templates/addLeafWeight.html",
+			"html/templates/addLeafArea.html",
+			"html/templates/addEarLength.html",
+			"html/templates/addPlantHeight.html",
+			"html/templates/addSPAData.html"
+		],
+		"resources": []
+	},
+	"html/plantSample/layoutTest.html": {
+		"refer": [
+			"html/plantSample/setFieldLayouttest.html",
+			"html/plantSample/addGridInfo.html",
+			"html/plantSample/addGridInfoTest.html"
+		],
+		"resources": []
+	},
+	"html/plantSample/layoutShow.html": {
+		"refer": [
+			"html/plantSample/setFieldLayouttest.html",
+			"html/plantSample/layoutShowDetail.html"
+		],
+		"resources": []
+	},
+	"html/plantSample/layoutShowDetail.html": {
+		"refer": [
+			"html/plantSample/browsGridDetail.html"
+		],
+		"resources": []
+	}
 }

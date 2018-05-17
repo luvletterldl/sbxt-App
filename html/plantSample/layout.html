@@ -42,8 +42,19 @@
 					var gridOne = []; //基本数据
 					var gridPlantH = []; //植株高度数据
 					var gridSpad = []; //SPAD数据
+					var gridMois = []; //含水量
+					var gridLeafW = []; //叶片重量
+					var girdLeafA = []; //叶面积指数
+					var gridEarLength = []; //穗长
 					var pageTemp = 0;
-					var urls = ["addPlantHeight.html","addSPAData.html"];
+					var urls = {
+						"植株高度": "../templates/addPlantHeight.html",
+						"SPAD":	"../templates/addSPAData.html",
+						"含水量":	"../templates/addMoisture.html",
+						"叶片重量": "../templates/addLeafWeight.html",
+						"叶面积指数": "../templates/addLeafArea.html",
+						"穗长": "../templates/addEarLength.html"
+					};
 					var generateDate = app.utils.dateFormat(new Date(), "yyyy-MM-dd HH:mm:ss");
 					var gridsJSONDatas = {
 						"gridsDatas": []
@@ -76,9 +87,7 @@
 							//给按钮添加打开特定的子页面事件
 							var sampBtns = document.getElementsByClassName('sampbtn');
 							console.log("采样项个数：" + sampBtns.length);
-							//if(sampBtns[0].value == "植株高度") {
-								sampBtns[0].addEventListener('tap', function() {
-									childPage = plus.webview.create(urls[0], urls[0], {
+							var childPagePara = {
 										width: '90%',
 										height: "300px",
 										margin: "auto",
@@ -88,30 +97,24 @@
 										scrollIndicator: 'none',
 										scalable: false,
 										popGesture: 'none'
-									});
-									childPage.addEventListener("loaded", function() {
-										childPage.show('fade-in', 300);
-										childPage = null;
-									}, false);
-								});
-								sampBtns[1].addEventListener('tap', function() {
-									childPage = plus.webview.create(urls[1], urls[1], {
-										width: '90%',
-										height: "300px",
-										margin: "auto",
-										position: "relative",
-										borderRadius: "25px",
-										background: "rgba(0,0,0,0.5)",
-										scrollIndicator: 'none',
-										scalable: false,
-										popGesture: 'none'
-									});
-									childPage.addEventListener("loaded", function() {
-										childPage.show('fade-in', 300);
-										childPage = null;
-									}, false);
-								})
-							//};
+								};
+							for(var q = 0; q < sampBtns.length; q++) {
+								var urlK = sampBtns[q].innerText;
+								var urlArr = [];
+								console.log("urlK:"+urlK+"--"+sampBtns.length);
+								if(sampBtns[q].innerText) { 
+									console.log("--"+urls[urlK]+"url:"+urls[urlK]);
+									urlArr.push(urlK);
+								}
+							}
+							mui('.mui-content').on('tap', '.sampbtn', function(){
+								console.log("=="+this.innerText);
+								childPage = plus.webview.create(urls[this.innerText], urls[this.innerText], childPagePara);
+								childPage.addEventListener("loaded", function() {
+									childPage.show('fade-in', 300);
+									childPage = null;
+								}, false);
+							})
 
 							//子界面编辑完  植株高度  的时候触发的父界面的事件
 							window.addEventListener('editPlantHeight', function(e) {
@@ -134,6 +137,47 @@
 									gridSD.innerHTML = gridSD.getAttribute('id') + "<h5>SPAD：" + gridSpad[i].spadDataTemp + "</h5>";
 								}
 							})
+							
+							//子界面编辑完  含水量 的时候触发的父界面的事件
+							window.addEventListener('editMoisture', function(e) {
+								gridMois.push(e.detail);
+								console.log("moisturepush OK!" + JSON.stringify(e.detail));
+								for(var i = 0; i < gridMois.length; i++) {
+									var istr = (i + 1).toString();
+									var gridMS = document.getElementById(istr);
+									gridMS.innerHTML = gridMS.getAttribute('id') + "<h5>含水量：" + gridMois[i].moistureTemp + "%</h5>";
+								}
+							})
+							//子界面编辑完  叶片重量 的时候触发的父界面的事件
+							window.addEventListener('editLeafWeight', function(e) {
+								gridLeafW.push(e.detail);
+								console.log("moisturepush OK!" + JSON.stringify(e.detail));
+								for(var i = 0; i < gridLeafW.length; i++) {
+									var istr = (i + 1).toString();
+									var gridLW = document.getElementById(istr);
+									gridLW.innerHTML = gridLW.getAttribute('id') + "<h5>叶片重量：" + gridLeafW[i].leafWeightTemp + "g/m^2</h5>";
+								}
+							})
+							//子界面编辑完  叶面积指数 的时候触发的父界面的事件
+							window.addEventListener('editLeafArea', function(e) {
+								girdLeafA.push(e.detail);
+								console.log("moisturepush OK!" + JSON.stringify(e.detail));
+								for(var i = 0; i < girdLeafA.length; i++) {
+									var istr = (i + 1).toString();
+									var gridLA = document.getElementById(istr);
+									gridLA.innerHTML = gridLA.getAttribute('id') + "<h5>叶面积指数：" + girdLeafA[i].leafAreaTemp + "</h5>";
+								}
+							})
+							//子界面编辑完  穗长 的时候触发的父界面的事件
+							window.addEventListener('editEarLength', function(e) {
+								gridEarLength.push(e.detail);
+								console.log("moisturepush OK!" + JSON.stringify(e.detail));
+								for(var i = 0; i < gridEarLength.length; i++) {
+									var istr = (i + 1).toString();
+									var gridEL = document.getElementById(istr);
+									gridEL.innerHTML = gridEL.getAttribute('id') + "<h5>穗长：" + gridEarLength[i].earLengthTemp + "cm</h5>";
+								}
+							})
 
 							//detailPage = plus.webview.getWebviewById(pageUrlArr[pageTemp]);
 							document.getElementById('getLayoutParams').style.display = "none";
@@ -142,17 +186,7 @@
 							var gridNum = document.getElementsByClassName('grid');
 							//在第一个表格上添加点击弹出编辑子页面事件
 							gridNum[0].addEventListener('tap', function() {
-								childPage = plus.webview.create("addGridInfoTest.html", "addGridInfoTest.html", {
-									width: '90%',
-									height: "500px",
-									margin: "auto",
-									position: "relative",
-									borderRadius: "25px",
-									background: "rgba(0,0,0,0.5)",
-									scrollIndicator: 'none',
-									scalable: false,
-									popGesture: 'none'
-								});
+								childPage = plus.webview.create("addGridInfoTest.html", "addGridInfoTest.html", childPagePara);
 								childPage.addEventListener("loaded", function() {
 									childPage.show('fade-in', 300);
 									childPage = null;
@@ -185,24 +219,43 @@
 //								}
 //							});
 
-							var merge = function(jsonone, jsontwo, jsonthree) {
+//							var merge = function(jsonone, jsontwo, jsonthree) {
+//								var resultJsonObject = {};
+//								for(var attr in jsonone) {
+//									resultJsonObject[attr] = jsonone[attr];
+//								}
+//								for(var attr in jsontwo) {
+//									resultJsonObject[attr] = jsontwo[attr];
+//								}
+//								for(var attr in jsonthree) {
+//									resultJsonObject[attr] = jsonthree[attr];
+//								}
+//								return resultJsonObject;
+//							};
+							var merge = function(jsonArr){
 								var resultJsonObject = {};
-								for(var attr in jsonone) {
-									resultJsonObject[attr] = jsonone[attr];
+								for(var s = 0; s < jsonArr.length; s++){
+									for( var attr in jsonArr[s]){
+										resultJsonObject[attr] = jsonArr[s][attr];
+									}
 								}
-								for(var attr in jsontwo) {
-									resultJsonObject[attr] = jsontwo[attr];
-								}
-								for(var attr in jsonthree) {
-									resultJsonObject[attr] = jsonthree[attr];
-								}
+								console.log("merge:"+JSON.stringify(resultJsonObject));
 								return resultJsonObject;
-							};
+							}
+							
 
 							document.getElementById('submit').addEventListener('tap', function() {
 								for(var i = 0; i < gridOne.length; i++) {
-									gridsJSONData.gridsData.push(merge(gridOne[i],gridPlantH[i],gridSpad[i]));
-									console.log("基本" + JSON.stringify(gridOne[i]) + "-植株高度-" + JSON.stringify(gridPlantH[i]));
+									var mergeJson = [];
+									if(gridOne[i]) mergeJson.push(gridOne[i]);
+									if(gridPlantH[i]) mergeJson.push(gridPlantH[i]);
+									if(gridSpad[i]) mergeJson.push(gridSpad[i]);
+									if(gridMois[i]) mergeJson.push(gridMois[i]);
+									if(gridLeafW[i]) mergeJson.push(gridLeafW[i]);
+									if(girdLeafA[i]) mergeJson.push(girdLeafA[i]);
+									if(gridEarLength[i]) mergeJson.push(gridEarLength[i]);
+									gridsJSONData.gridsData.push(merge(mergeJson));
+									console.log("基本" + JSON.stringify(gridOne[i]) + "-gridsJSONData-" + JSON.stringify(gridsJSONData));
 								}
 								gridsJSONData.extraData = data;
 								if(!localStorage.getItem('$gridsDatas')) {

@@ -215,7 +215,13 @@
 					"html/plantSample/addGridInfo.html",
 					"html/plantSample/addGridInfoTest.html",
 					"html/plantSample/addPlantHeight.html",
-					"html/plantSample/addSPAData.html"
+					"html/plantSample/addSPAData.html",
+					"html/templates/addMoisture.html",
+					"html/templates/addLeafWeight.html",
+					"html/templates/addLeafArea.html",
+					"html/templates/addEarLength.html",
+					"html/templates/addPlantHeight.html",
+					"html/templates/addSPAData.html"
 				],
 				"priority": 0
 			},
