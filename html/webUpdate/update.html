@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/iconfont.css" rel="stylesheet" />
+		<link href="../../css/mui.picker.css" rel="stylesheet" />
+		<link href="../../css/mui.picker.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/icons-extra.css" />
+		<style type="text/css">
+			.img-show {
+				margin: 5px;
+				width: 86px;
+				height: 86px;
+				padding: 2px;
+				border: 1px dashed #C0C0C0;
+				line-height: 86px;
+				display: inline-block;
+				vertical-align: middle;
+			}
+			
+			.icon-zengjia:before {
+				font-size: 36px;
+			}
+			
+			.img-show img {
+				width: 80px;
+				height: 80px;
+				display: inline-block;
+				margin: 0px;
+				padding: 0px;
+			}
+		</style>
+	</head>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<!--<a id="getLayoutParams" class="iconfont icon-wode1 mui-icon-right-nav mui-pull-right mui-openwindow" style="line-height: 44px;"></a>-->
+		<h1 class="mui-title">编辑第<span id='gridId'>1</span>个表格数据</h1>
+	</header>
+	<div class="mui-content">
+		<ul class="mui-table-view" id="clist">
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>穗长<span class="must-flag"></span>：</label>
+					<input id="spadData" class="gridData" placeholder="穗长" type="text" validate-rule="required" />
+				</div>
+				<div style="margin: 20px 0;">
+					<button id="cancel" type="button" class="mui-btn mui-btn-red mui-btn-block" style="width: 30%;float: left;margin-left: 15%;">取消</button>
+					<button id="submit" type="button" class="mui-btn mui-btn-red mui-btn-block" style="width: 30%;float: right;margin-right: 15%;">下一格</button>
+				</div>
+				</from>
+		</ul>
+	</div>
+
+	<body>
+		<script type="text/javascript" src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/app.js"></script>
+		<script type="text/javascript" src="../../js/validation.js"></script>
+		<script type="text/javascript" src="../../js/datasubmit.js"></script>
+		<script type="text/javascript" src="../../js/av-min.js"></script>
+		<script>
+			var APP_ID = 'P8EHCY3BBvr3VjUBnq6PtjqO-gzGzoHsz';
+			var APP_KEY = 'dUVgbsny5eoz1p0WlmMtOfLN';
+			AV.init({
+				appId: APP_ID,
+				appKey: APP_KEY
+			});
+			if(!AV) console.log("faild");
+//			var TestObject = AV.Object.extend('TestObject');
+//			var testObject = new TestObject();
+//			testObject.save({
+//				words: 'Hello World!'
+//			}).then(function(object) {
+//				console.log('LeanCloud Rocks!');
+//			})
+			  // 声明类型
+			  var Sbxt = AV.Object.extend('Sbxt');
+			  // 新建对象
+			  var Sbxt = new Sbxt();
+			  // 设置名称
+			  console.log(typeof(localStorage.getItem('$gridsDatas')))
+//			  Sbxt.set('data', string);
+			  Sbxt.set('data',localStorage.getItem('$gridsDatas'));
+			  // 设置优先级
+			  Sbxt.save().then(function (todo) {
+			    console.log('objectId is ' + todo.id);
+			  }, function (error) {
+			    console.error(error);
+			  });
+			  
+
+		</script>
+	</body>
+
+</html>

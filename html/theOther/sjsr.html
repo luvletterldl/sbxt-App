@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav Background">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">数据输入</h1>
+		</header>
+		<div class="mui-content">
+		  	<!--<form class="mui-input-group">-->
+		  		<div class="mui-input-row mui-search">
+    				<input type="search" class="mui-input-clear" placeholder="">
+				</div>
+				
+	    		<div class="mui-input-row" style="margin-top: 15px;margin-bottom: 15px;height: 60px;">
+	        		<label>标号：</label>
+	    			<input type="text" name="BH" readonly="readonly" class="BH datas" value=""  placeholder="请输入標號">
+	    		</div>
+	    		<div class="mui-input-row" style="margin-top: 15px;margin-bottom: 15px;height: 60px;">
+	        		<label class="MC">名称：</label>
+	    			<input type="text" value="" readonly="readonly" class="MC datas" placeholder="请输入采样名称">
+	    		</div>
+	    		<div class="mui-input-row" style="margin-top:15px;margin-bottom:15px;height: 60px;">
+	        		<label class="mui-tab-label">数据：</label>
+	    			<input type="text" id="talkContent" class="SJ datas mui-input-clear" style="" placeholder="请输入数据">
+	    		</div>
+	    		<div style="text-align: center; padding:  10px 0;">
+		            <button id="start" class="mui-btn-royal">开始录音</button>
+		        </div>
+	    		
+	    		<div class="mui-button-row" style="height: 70px;">
+	        		<button type="button" id="clickMe" onclick="getNumber()" class="mui-btn mui-btn-primary">下一个</button>
+	        		<button type="button" id="save" onclick="setNumber()" class="mui-btn mui-btn-danger" style="margin-left:100px;height: ;">保存</button>
+	    		</div>
+			<!--</form>-->  
+		</div>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var gridsNum = null;
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				crData = self.crData;
+				gridsNum = crData.row * crData.col;
+				console.log(JSON.stringify(crData)+"-"+gridsNum);
+			});
+			//语音识别。
+			var i=0;
+			var talkContent = document.getElementById("talkContent");
+        	document.addEventListener('plusready', function(){
+            	document.getElementById("start").addEventListener("tap", startRecognize);
+        	});
+
+	        function startRecognize() {
+            if(plus.os.name=='Android'&&navigator.userAgent.indexOf('StreamApp')>0){
+                plus.nativeUI.toast('当前环境暂不支持语音识别插件');
+                return;
+            }
+            if(plus.os.name=='Android') {
+                var options = {};
+                options.engine = 'iFly';
+                options.punctuation = false;    // 是否需要标点符号 
+                talkContent.value = "";
+                console.log( "开始语音识别：" );
+                plus.speech.startRecognize( options, function ( s ) {
+                    console.log( s );
+                    talkContent.value += s;
+                    console.log( talkContent.value );
+					//如何执行下一个按钮
+					function Click(){
+						document.getElementById("clickMe").onclick();
+					}
+						setTimeout(Click,2000);
+						setTimeout(startRecognize,3000);//重新输入。
+					
+                }, function ( e ) {
+                    console.log( "语音识别失败："+e.message );
+                } );
+            }
+            
+        }
+	       
+			
+			window.onload = function() {
+				var bh = localStorage.getItem("sign");
+				var bh2 = parseInt(bh);
+				document.getElementsByClassName('BH')[0].value=bh2+1;
+				console.log(bh);
+				
+				var mc = localStorage.getItem("lable");
+				document.getElementsByClassName('MC')[1].value=mc;
+				console.log(mc);
+				
+				}
+			
+			
+			
+			var data = new Array();
+			function getNumber(){
+				//存儲
+				var sj = document.getElementsByClassName('SJ')[0].value;
+				console.log(sj);
+				data.push(sj);
+				console.log("数组："+data);				
+				
+				document.getElementsByClassName('SJ')[0].value = document.getElementsByClassName('SJ').innerText = null;
+				
+			}
+			function setNumber(){
+				var sj = document.getElementsByClassName('SJ')[0].value;
+				data.push(sj);
+				localStorage.setItem("data",JSON.stringify(data));
+				console.log("本地数据："+JSON.stringify(data));
+				mui.openWindow({
+					url : 'data.html',
+					id : 'data.html'
+				})
+			}
+			
+//			console.log(data);
+			mui.init({
+    	swipeBack: true, //启用右滑关闭功能
+    	});
+		</script>
+	</body>
+
+</html>

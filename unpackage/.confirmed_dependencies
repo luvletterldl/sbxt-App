@@ -18,7 +18,9 @@
 			"html/plantSample/layoutShow.html",
 			"html/plantSample/addGridInfoTest.html",
 			"html/plantSample/dealPicture.html",
-			"html/plantSample/clearData.html"
+			"html/plantSample/clearData.html",
+			"html/theOther/index.html",
+			"html/webUpdate/update.html"
 		],
 		"resources": []
 	},
@@ -67,5 +69,18 @@
 			"html/plantSample/browsGridDetail.html"
 		],
 		"resources": []
+	},
+	"html/theOther/index.html": {
+		"refer": [
+			"html/theOther/contact.html",
+			"html/theOther/star.html",
+			"html/theOther/sjsr.html"
+		],
+		"resources": []
+	},
+	"html/theOther/contact.html": {
+		"refer": [
+			"html/theOther/sjsr.html"
+		]
 	}
 }

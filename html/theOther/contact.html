@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.css"/>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav Background">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">自定义采样</h1>
+		</header>
+		<div class="mui-content" id="content">
+			<div class="mui-input-row mui-radio mui-left data">
+				<label class="lab">植株高度</label>
+				<input name="checkbox1" value="Item 1" type="radio" class="rds" checked="checked">
+			</div>
+			<div class="mui-input-row mui-radio mui-left data">
+				<label class="lab">SPAD</label>
+				<input name="checkbox1" value="Item 1" type="radio" class="rds">
+			</div>
+		</div>
+			<button name="button" class="mui-btn mui-btn-primary mui-btn-outlined" style="margin-left: 6%;height: 50px;width: 80px;" id="compile" onclick="getVals();">输入</button>
+			<button name="button" class="mui-btn mui-btn-warning mui-btn-outlined" style="margin-left: 6%;height: 50px;width: 80px;" id="add">添加</button>
+			<button name="button" class="mui-btn mui-btn-success mui-btn-outlined" style="margin-left: 6%;height: 50px;width: 80px;" id="delate">删除</button>
+
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			
+				mui.init();
+				var crData = null;
+			window.addEventListener('ok',function(){
+					 location.reload(); 
+					
+			});
+			mui.plusReady(function(){
+				var self = plus.webview.currentWebview();
+				crData = self.crData;
+				console.log(JSON.stringify(crData));
+			});
+			function getVals() {
+				var rdsObj = document.getElementsByName('checkbox1')
+				for(var i = 0; i < rdsObj.length; i++) {
+					if(rdsObj[i].checked == true) {
+						var Sign = window.localStorage;
+						var Lable = window.localStorage;
+						
+						Sign.setItem("sign", i);
+						var varietyArr = localStorage.getItem("variety");
+						var variety = varietyArr.split(',');
+						Lable.setItem('lable',variety[i]);
+						console.log(i);
+						console.log(variety[i]);
+						mui.openWindow({
+							url: 'sjsr.html',
+							id: 'sjsr.html',
+							extras:{
+								crData: crData
+							}
+						})
+					}
+				}
+			}
+			//跳转添加页面
+			document.getElementById('add').addEventListener('tap', function() {
+				mui.openWindow({
+					url: 'star.html',
+					id: 'star.html'
+				})
+			});
+			
+			//			function   getRadioValue(){   
+			//  			var   checkbox1s=document.getElementsByName("checkbox1");   
+			//   			for(var   i=0;i<fruits.length;i++){   
+			//      			if(checkbox1[i].checked)   
+			//          			alert(checkbox1[i].value);   
+			//   			}   
+			//			}  
+			window.onload = function() {
+				if(window.localStorage.getItem("variety")) {
+					
+					var parent = document.getElementById("content");
+//					var brother = document.getElementsByClassName("data");
+					var varietyArr = localStorage.getItem("variety");
+					console.log(varietyArr);
+					var variety = varietyArr.split(',');//split() 方法用于把一个字符串分割成字符串数组。
+					for(var i = 2; i < variety.length; i++) {
+						if(variety[i]){
+						var div = document.createElement("div");
+						div.className='mui-input-row mui-radio mui-left data';
+						
+						var label1 = document.createElement("label");
+						label1.innerHTML = variety[i];
+						var input1 = document.createElement("input");
+						input1.name = "checkbox1";
+						input1.value = "Item 1";
+						input1.type = "radio";
+						input1.className = "rds";
+						
+						div.appendChild(label1);
+						div.appendChild(input1);
+						
+						
+						//在节点之后添加节点。
+						insertAfter(div, parent.childNodes[i+1]);
+
+						//插入元素方法
+						function insertAfter( newElement, targetElement ){
+						     var parent = targetElement.parentNode;
+						     if( parent.lastChild == targetElement ){
+						    	parent.a( newElement, targetElement );
+						 	}else{
+						    	parent.insertBefore(newElement,targetElement.nextSibling );
+						 	}
+						} 
+//						parent.insertBefore(div,parent.childNodes[i-1]);//在您指定的已有子节点之前插入新的子节点。
+					}
+					}
+				}
+				else{
+					var varietyArr = document.getElementsByClassName("lab");
+					var variety=[];
+					for(var i=0;i<varietyArr.length;i++)
+					{
+						variety.push(varietyArr[i].innerHTML);
+					}
+					window.localStorage.setItem('variety',variety)
+					
+				}
+			}
+//			document.getElementById('add').addEventListener('tap', function() {
+//				for(var j = 0; j < variety.length; j++) 
+//				{
+//					
+//					localStorage.removeItem("variety[i]");
+//					$('#reducedLine>div[id="data"]').remove();//点击按钮如何删除指定div
+//				}
+//			}); 
+				//删除指定的div
+				document.getElementById('delate').addEventListener('tap', function() {
+					var checkArr = document.getElementsByName('checkbox1')
+					var dataArr = document.getElementsByClassName("data");
+						for(var j = 0; j <checkArr.length; j++) {
+							if(checkArr[j].checked == true) {
+//								checkArr[j]=document.getElementById('data');
+//								checkArr[j].parentNode.removeChild(checkArr[j])
+				    			dataArr[j].parentNode.removeChild(dataArr[j]);
+				    			//从本地取出数据转换成字符串删除
+				    			var odiv = localStorage.getItem("variety");
+				    			var Variety = odiv.split(',');//split() 方法用于把一个字符串分割成字符串数组。
+				    			
+				    			Variety.splice(j,1);
+//				    			Variety[j].remove(Variety[j]);
+
+
+				    			console.log(Variety);
+				    			localStorage.removeItem("variety");
+				    			localStorage.setItem("variety",Variety);
+				    			console.log(Variety);
+				    			//將角標存進內存中
+//				    			var Sign = window.localStorage;
+//								Sign.setItem("sign", j);//将varietyArr存储到"sign"字段
+//								console.log(j);
+				    		}
+						}
+//				    odiv.localStorage.removeItem("variety");
+				} );
+			mui.init({
+    	swipeBack: true, //启用右滑关闭功能
+   		     });
+		</script>
+	</body>
+</html>

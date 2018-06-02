@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav Background">
+	    	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	    	<h1 class="mui-title ">数据</h1>
+	    </header>
+	   	<div class="mui-content">
+			<ul class="mui-table-view">
+			    <li class="mui-table-view-cell mui-collapse">
+			        <a class="mui-navigate-right" href="#">第一次采集</a>
+			            <ul class="mui-table-view">
+			            	<li class="mui-table-view-cell mui-collapse-content">
+						        <a class="mui-navigate-right">植株高度</a>
+						        <div class="mui-collapse-content">
+					   	            <p id="zzgd"></p>
+					   	        </div>
+						    </li>
+						    <li class="mui-table-view-cell">
+						        <a class="mui-navigate-right">Item 2</a>
+						    </li>
+						    <li class="mui-table-view-cell">
+						        <a class="mui-navigate-right">Item 3</a>
+						    </li>
+			            </ul>
+			    </li>
+			    <li class="mui-table-view-cell mui-collapse">
+			        <a class="mui-navigate-right" href="#">第二次采集</a>
+			            <ul class="mui-table-view">
+			            	<li class="mui-table-view-cell">
+						        <a class="mui-navigate-right">Item 1</a>
+						    </li>
+						    <li class="mui-table-view-cell">
+						        <a class="mui-navigate-right">Item 2</a>
+						    </li>
+						    <li class="mui-table-view-cell">
+						        <a class="mui-navigate-right">Item 3</a>
+						    </li>
+			            </ul>
+			    </li>
+			    <li class="mui-table-view-cell mui-collapse">
+			        <a class="mui-navigate-right" href="#">第三次采集</a>
+			        <ul class="mui-table-view">
+			            	<li class="mui-table-view-cell">
+						        <a class="mui-navigate-right">Item 1</a>
+						    </li>
+						    <li class="mui-table-view-cell">
+						        <a class="mui-navigate-right">Item 2</a>
+						    </li>
+						    <li class="mui-table-view-cell">
+						        <a class="mui-navigate-right">Item 3</a>
+						    </li>
+			            </ul>
+			    </li>
+			</ul>	
+	   	</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			
+//			for(var i ; i<=10 ; i++){
+//				var Data=new Array()
+				var Data = localStorage.getItem("data");//获取键为data的字符串
+				console.log(Data);
+				document.getElementById('zzgd').innerHTML=Data;
+				var Sign = localStorage.getItem("sign") ;
+				console.log(Sign);
+//				for( ; i <= localStorage.getItem("sign").length ; ){
+//				i++;
+//			}
+//			var str=JSON.stringify(json);//对象转换成字符串  
+//			var aa=JSON.parse(str);//字符串转成对象  
+//			var Datal = JSON.parse(data1);//将字符串转换成对象
+			mui.init({
+    			swipeBack: true, //启用右滑关闭功能
+   		    		 });
+		</script>
+	</body>
+</html>

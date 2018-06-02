@@ -11,6 +11,17 @@
 		<link href="../../css/mui.picker.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="../../css/icons-extra.css" />
 		<style type="text/css">
+			.my-search {
+				position: absolute;
+				z-index: 1;
+				right: 0;
+				width: 38px;
+				height: 38px;
+				text-align: center;
+				color: #FF701A;
+				top: 8px;
+			}
+			
 			.img-show {
 				margin: 5px;
 				width: 86px;
@@ -33,6 +44,10 @@
 				margin: 0px;
 				padding: 0px;
 			}
+			
+			.dis_none {
+				display: none;
+			}
 		</style>
 	</head>
 	<header class="mui-bar mui-bar-nav">
@@ -46,6 +61,7 @@
 				<div class="mui-input-row">
 					<label>植株高度<span class="must-flag"></span>：</label>
 					<input id="plHeight" class="gridData" placeholder="植株高度(cm)" type="text" validate-rule="required,double" />
+					<span class="mui-icon mui-icon-search my-search" id="start"></span>
 				</div>
 				<div style="margin: 20px 0;">
 					<button id="cancel" type="button" class="mui-btn mui-btn-red mui-btn-block" style="width: 30%;float: left;margin-left: 15%;">取消</button>
@@ -70,6 +86,41 @@
 				var plHeight = null;
 				var getvariety, getmanure, getmanureWay;
 				var imgPathArr = [];
+				var talkContent = document.getElementById("plHeight");
+				document.addEventListener('plusready', function() {
+					document.getElementById("start").addEventListener("tap", startRecognize);
+				});
+
+				function startRecognize() {
+					if(plus.os.name == 'Android' && navigator.userAgent.indexOf('StreamApp') > 0) {
+						plus.nativeUI.toast('当前环境暂不支持语音识别插件');
+						return;
+					}
+					if(plus.os.name == 'Android') {
+						var options = {};
+						options.engine = 'iFly';
+						options.punctuation = false; // 是否需要标点符号 
+						talkContent.value = "";
+						console.log("开始语音识别：");
+						plus.speech.startRecognize(options, function(s) {
+							console.log(s);
+							talkContent.value += s;
+							console.log(talkContent.value);
+							//如何执行下一个按钮
+							function Click() {
+								var nextClick = document.getElementById('submit');
+								mui.trigger(nextClick, 'touchstart');
+								mui.trigger(nextClick, 'tap');
+							}
+							setTimeout(Click, 2000);
+							setTimeout(startRecognize, 2500); //重新输入。
+
+						}, function(e) {
+							console.log("语音识别失败：" + e.message);
+						});
+					}
+
+				}
 				$.plusReady(function() {
 					gridsNum = localStorage.getItem('$gridsNum');
 					console.log("---"+localStorage.getItem('$gridsNum'));

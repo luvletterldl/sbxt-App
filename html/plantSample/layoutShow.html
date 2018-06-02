@@ -32,12 +32,12 @@
 				$.init();
 				app.initOpenWindow();
 				$.plusReady(function() {
-					function generDiv(id, spdate, col, row, variety, way) {
+					function generDiv(id, spdate, col, row, variety, way, para) {
 						var divTemp = app.createElement('div', {
 							attrs: {
 								id: id
 							},
-							innerHTML: '行:' + row + " 列:" + col + " 日期:" + spdate + " 品种:" + variety + " 方法:" + way,
+							innerHTML: "代号：<b>"+para+"</b> 日期: <b>" + spdate+"</b>",
 							className: "mui-input-row"
 						})
 						return divTemp;
@@ -55,7 +55,8 @@
 						var row = extraGroupData.row;
 						var variety = extraGroupData.variety;
 						var way = extraGroupData.manure;
-						var divTemp = generDiv(i, samplingDate, col, row, variety, way);
+						var para = extraGroupData.samplingMan;
+						var divTemp = generDiv(i, samplingDate, col, row, variety, way, para);
 						divAddSite.appendChild(divTemp);
 						//						document.getElementById(i).addEventListener('tap', function() {
 						//							var webView = mui.openWindow({

@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../../css/mui.css"/>
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav Background">
+    	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    	<h1 class="mui-title ">首页</h1>
+    </header>
+    <div class="mui-content">
+        
+		<form class="mui-input-group" style="margin-bottom: 15px;">
+		    <div class="mui-input-row">
+		        <label>行</label>
+		        <input type="text" class="mui-input-clear" placeholder="行数">
+		    </div>
+		    <div class="mui-input-row">
+		        <label>列</label>
+		        <input type="text" class="mui-input-clear" placeholder="列数">
+		    </div>
+		</form>
+		<ul class="mui-table-view">
+		    <li class="mui-table-view-cell mui-media">
+		        <a href="#" id="zhang">
+		            <div class="mui-media-body mui-text-center" style="font-family: '微软雅黑';font-size:larger">
+		                	自定义采样
+		            </div>
+		        </a>
+		    </li>
+		</ul>
+    </div>
+   		 <script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+					swipeBack: true, //启用右滑关闭功能
+					
+				    subpages:[//先加载首页
+				    	{
+					      url:'index.html',
+					      id:'a1',
+					      styles:{
+//					      	 top:'0px',
+//		        				bottom:'60px'
+					      }
+					    }
+				   		
+				    ],
+				    preloadPages:[//缓存其他页面
+				    	{
+					      url:'contact.html',
+					      id:'a2',
+					      styles:{
+					      	 top:'0px',
+		        			bottom:'50px'
+					      }
+					    },
+					    {
+					      url:'star.html',
+					      id:'a3',
+					      styles:{
+					      	 top:'0px',
+		        			bottom:'50px'
+					      }
+					    },
+					    {
+					      url:'sjsr.html',
+					      id:'a4',
+					      styles:{
+					      	 top:'0px',
+		        			bottom:'50px'
+					      }
+					    }
+				 	]
+				    
+				});
+			mui.plusReady(function(){ 
+				// 获取所有Webview窗口
+				var winAll=plus.webview.all();//获取所有窗体
+				//console.log(JSON.stringify(winAll)) 
+				var a1,a2,a3,a4
+				mui("#nav").on("tap","#a1",function(){//点击触发 
+					a1=plus.webview.getWebviewById("a1");
+//					console.log(JSON.stringify(a1)) 
+					a1.hide()
+					a2.hide()//这一步必须有
+					a3.hide()//这一步必须有
+					a4.hide()//这一步必须有
+				})
+				mui("#nav").on("tap","#a2",function(){//点击触发
+					a2=plus.webview.getWebviewById("a2");
+					a2.show()
+					
+				})
+				mui("#nav").on("tap","#a3",function(){//点击触发
+					a3=plus.webview.getWebviewById("a3");
+					a3.show()
+					
+				})
+				mui("#nav").on("tap","#a4",function(){//点击触发
+					a4=plus.webview.getWebviewById("a4");
+					a4.show()
+					
+				})
+				document.getElementById('zhang').addEventListener('tap',function(){
+					var colRow = document.querySelectorAll('.mui-input-clear');
+					var row = colRow[0].value; //行
+					var col = colRow[1].value; //列
+					console.log("--"+ row + '++'+col);
+					var crData = {
+						"row":row,
+						"col":col
+					};
+					mui.openWindow({
+						url : 'contact.html',
+						id :'contact.html',
+						extras:{
+							crData: crData
+						}
+					})
+				});
+			});
+		</script> 
+		
+	</body>
+</html>

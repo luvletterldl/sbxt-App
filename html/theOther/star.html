@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav Background">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">添加指标</h1>
+		</header>
+		 <!--<div class="mui-content mui-scroll-wrapper">-->
+					<!--<div class="mui-scroll">-->
+						<!-- 主界面具体展示内容 -->
+						<!--<ul class="mui-table-view" id="clist">-->
+							<!--<form class="mui-input-group">-->
+							<div class="mui-content">
+								<div class="mui-input-row" style="padding-top: 15px;padding-bottom: 15px;height: 70px;">
+						        	<label>类型：</label>
+						    		<div class="mui-radio" style="float: right;<!--padding-right: 10px;-->margin-right: 10px;">
+										<label>数字</label>
+										<input name="radio1" type="radio" checked>
+									</div> 
+									<div class="mui-radio" style="float: right;padding-right: 10px;margin-right:10px;">
+										<label>文本</label>
+										<input name="radio1" type="radio">
+									</div>     			
+					    		</div>
+								<div class="mui-input-row" style="padding-top: 15px; padding-bottom: 15px;height: 70px;">
+									<label>指标：</label>
+									<input id="talkContent" class="variety mui-input-clear mui-input-speech-hei" type="text" validate-rule="required" placeholder="请输入指标" />
+								</div>
+								<div style="text-align: center; padding:  10px 0;">
+						            <button id="Start" class="mui-btn-royal">开始录音</button>
+						        </div>
+								
+								<!--</from>-->
+						<!--</ul>-->
+						<button id='S' type="button" onclick="getValue()" class="mui-btn mui-btn-primary mui-btn-outlined" style="margin-top:100px;width: 80%;margin-left: 10%;height: 50px;">设定完成</button>
+
+					</div>
+				<!--</div>-->   
+		<!--</div>-->
+		<script src="../../js/mui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/app.js"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			//语音输入.
+						var talkContent = document.getElementById("talkContent");
+				        document.addEventListener('plusready', function(){
+				            document.getElementById("Start").addEventListener("tap", startRecognize);
+				        });
+				
+				        function startRecognize() {
+				            if(plus.os.name=='Android'&&navigator.userAgent.indexOf('StreamApp')>0){
+				                plus.nativeUI.toast('当前环境暂不支持语音识别插件');
+				                return;
+				            }
+				            if(plus.os.name=='Android') {
+				                var options = {};
+				                options.engine = 'iFly';
+				                options.punctuation = false;    // 是否需要标点符号 
+				                talkContent.value = "";
+				                console.log( "开始语音识别：" );
+				                plus.speech.startRecognize( options, function ( s ) {
+				                    console.log( s );
+				                    talkContent.value += s;
+				//                  talkContent.innerText += talkContent.textContent
+				                    console.log( talkContent.value );
+				//                  document.getElementById('talkContent').innerText = talkContent.textContent;
+				                }, function ( e ) {
+				                    console.log( "语音识别失败："+e.message );
+				                } );
+				            }
+				        }	
+					//存数据到本地存储
+			var varietyArr = [];//建一个指标内容的数组
+			var storage = window.localStorage;		
+			varietyArr.push(storage.getItem("variety"));//接口的getItem()方法Storage在传递密钥名称时将返回该密钥的值
+			function getValue(){
+//			document.getElementById('S').addEventListener('tap', function() {
+				var inputArr = document.getElementsByClassName("variety");//建一个指标的数量数组
+				var Lenth =  varietyArr.length;
+				for(var i = 0; i <Lenth; i++) {
+					var child = inputArr[i];
+					if(child.value) {
+						varietyArr.push(child.value);
+					}
+					//写入vatriety字段
+				}
+				console.log(Lenth);
+				storage.setItem("variety", varietyArr);//将varietyArr存储到"variety"字段
+				console.log(storage.getItem("variety"));
+//														localStorage.getItem(key):获取指定key本地存储的值
+//														localStorage.setItem(key,value)：将value存储到key字段
+//														localStorage.removeItem(key):删除指定key本地存储的值
+						
+				
+				
+				//主要页面刷新
+				mui.init({
+				beforeback: function(){
+					//获得列表界面的webview
+					var address = plus.webview.getWebviewById('contact.html');
+					//触发列表界面的自定义事件（refresh）,从而进行数据刷新
+					mui.fire(address,'ok');
+					//返回true，继续页面关闭逻辑
+					return true;
+				}
+			});
+			mui.back();
+			}
+
+				
+		</script>
+	</body>
+
+</html>
