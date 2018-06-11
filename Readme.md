@@ -1,10 +1,10 @@
 ## 河南农业大学农情采集系统手机app
 
-# Dev：导入Hbuilder即可
+### Dev：导入Hbuilder即可
 
-# Install：sbxt-App/unpackage/release/***.apk
+### Install：sbxt-App/unpackage/release/***.apk
 
-# Author: 栗栋梁,杨民安
+### Author: 栗栋梁,杨民安
 
 # 基本功能  
 1. 自定义生成种植规划图
